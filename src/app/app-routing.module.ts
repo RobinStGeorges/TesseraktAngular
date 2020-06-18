@@ -6,6 +6,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './service/auth/auth.guard';
 import {IndexComponent} from './index/index.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'home',
     canActivate: [AuthGuard],
     component: AccueilComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 
 ];

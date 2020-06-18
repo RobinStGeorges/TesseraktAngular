@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import * as firebase from 'firebase';
+import {error} from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -6,4 +8,22 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor() { }
+
+  signUpUser(email: string, password: string){
+    return new Promise(
+      (resolve, reject) => {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(
+          () => {
+            console.log('conecté');
+            resolve();
+          }
+        ).catch(
+          // tslint:disable-next-line:no-shadowed-variable
+          (error) => {
+            reject(error);
+          }
+        );
+      }
+    );
+  }
 }
