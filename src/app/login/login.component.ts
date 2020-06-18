@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../service/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +10,43 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  model: any = {};
+  signinForm: FormGroup;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.initSigninForm();
   }
 
-  login() {
-    console.log('Tentative de connexion');
-
-    // Vérifier que login/mdp sont correctes, par exemple par une requête à un service REST
-    localStorage.setItem('user', JSON.stringify({login : this.model.username}));
-    this.router.navigate(['/home']);
+  initSigninForm(){
+    console.log('initialized');
+    this.signinForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]]
+    });
   }
+
+  onSubmitSigninForm(){
+    console.log('intoOnsubmit');
+    const email = this.signinForm.get('email').value;
+    const password = this.signinForm.get('password').value;
+    this.authService.signInUser(email, password).then(
+      () => {
+        console.log('sucessfuly singin');
+      }
+    ).catch(
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
 
 }

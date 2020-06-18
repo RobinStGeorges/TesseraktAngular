@@ -1,30 +1,14 @@
-<!--<div class="col-md-6 col-md-offset-3">-->
-<!--  <div class="login-wrapper">-->
-<!--    <h2>Creer un compte</h2>-->
 
-<!--    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>-->
-<!--      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">-->
-<!--        <label for="username">Identifiant</label>-->
-<!--        <input type="text" class="form-control" name="username" id="username" [(ngModel)]="model.username" #username="ngModel" placeholder='Saisissez votre identifiant' required />-->
-<!--      </div>-->
-<!--      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">-->
-<!--        <label for="password">Mot de passe</label>-->
-<!--        <input type="password" class="form-control" name="password" id="password" [(ngModel)]="model.password" #password="ngModel" placeholder='Saisissez votre mot de passe' required />-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <button class="btn btn-primary pull-right" [disabled]="!f.form.valid">Creer</button>-->
-<!--      </div>-->
-<!--    </form>-->
-
-<!--  </div>-->
-<!--</div>-->
 
 <div class="container">
   <h1 class="display-4 mt-5 mb-0">S'inscrire</h1>
   <hr class="mt-0 mb-5 bg-dark">
-  <div class="row">
+    <div *ngIf="isSignedIn == true">
+      Inscription terminé ! Bienvenue {{ firstName }} {{ lastName }}
+    </div>
+  <div class="row" *ngIf="isSignedIn == false">
     <div class="col-sm-12 com-md-10 col-lg-8 mx-auto">
-      <form [formGroup]="signinForm" (ngSubmit)="onSubmitSigninForm()">
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmitSignUpForm()">
 
         <div class="form-group">
           <label for="email">Email</label>
@@ -34,6 +18,16 @@
         <div class="form-group">
           <label for="password">Password</label>
           <input id="password" type="password" class="form-control" placeholder="monmdpcomplexede6caractèresminimum" formControlName="password">
+        </div>
+
+        <div class="form-group">
+          <label for="firstName">Prénom</label>
+          <input id="firstName" type="text" class="form-control" placeholder="Bob" formControlName="firstName">
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Nom</label>
+          <input id="lastName" type="text" class="form-control" placeholder="Lebryk-hauleur" formControlName="lastName">
         </div>
 
         <button class="btn btn-primary" type="submit" [disabled]="signinForm.invalid"> inscription </button>
