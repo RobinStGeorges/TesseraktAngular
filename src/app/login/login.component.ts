@@ -26,9 +26,7 @@ export class LoginComponent implements OnInit {
     console.log('initialized');
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -37,11 +35,13 @@ export class LoginComponent implements OnInit {
     const email = this.signinForm.get('email').value;
     const password = this.signinForm.get('password').value;
     this.authService.signInUser(email, password).then(
-      () => {
+      (data) => {
         console.log('sucessfuly singin');
+        console.log(data);
       }
     ).catch(
       (error) => {
+        alert('Données incorrectes');
         console.log(error);
       }
     );
