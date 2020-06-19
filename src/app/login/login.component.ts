@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
       (data) => {
         console.log('sucessfuly singin');
         console.log(data);
+        localStorage.setItem('user', JSON.stringify({login : email}));
+        this.router.navigate(['/home']);
       }
     ).catch(
       (error) => {
