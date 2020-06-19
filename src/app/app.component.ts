@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import { Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',

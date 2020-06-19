@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './service/auth/auth.guard';
 import {IndexComponent} from './index/index.component';
 import { RegisterComponent } from './register/register.component';
+import {CoursComponent} from './cours/cours.component';
+import { ShowCoursComponent } from './show-cours/show-cours.component';
 
 
 const routes: Routes = [
@@ -26,6 +28,14 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'cours',
+    component: CoursComponent
+  },
+  {
+    path: 'showCours',
+    component: ShowCoursComponent
   }
 
 ];
