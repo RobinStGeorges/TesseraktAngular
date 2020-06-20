@@ -1,14 +1,16 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h2>Vos cours</h2>
-    <div class="list-group">
-      <div
-        class="list-group-item"
-        *ngFor="let cours of items; let i = index">
-        <h3 class="list-group-item-heading">
-          <a (click)="showOneCours(cours.payload.doc.data().numero )" > {{ cours.payload.doc.data().titre }}</a>
-        </h3>
-        <p class="list-group-item-text">{{ cours.payload.doc.data().contenu }}</p>
+<div class=" page">
+  <div class="row">
+    <div class="col-xs-12 content-col">
+      <h2>Vos cours</h2>
+      <div class="list-group">
+        <div
+          class="list-group-item"
+          *ngFor="let cours of items; let i = index">
+          <h3 class="list-group-item-heading titre">
+            <a (click)="showOneCours(cours.payload.doc.data().numero )" > {{ cours.payload.doc.data().titre }}</a>
+          </h3>
+<!--          <p class="list-group-item-text">{{ cours.payload.doc.data().contenu }}</p>-->
+        </div>
       </div>
     </div>
   </div>

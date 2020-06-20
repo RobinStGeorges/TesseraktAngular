@@ -21,6 +21,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { CoursComponent } from './cours/cours.component';
 import { ShowCoursComponent } from './show-cours/show-cours.component';
 import {SafePipeModule} from 'safe-pipe';
+import { ExercicesComponent } from './exercices/exercices.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {SafePipeModule} from 'safe-pipe';
     IndexComponent,
     RegisterComponent,
     CoursComponent,
-    ShowCoursComponent
+    ShowCoursComponent,
+    ExercicesComponent
   ],
   imports: [
     BrowserModule,

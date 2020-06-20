@@ -9,6 +9,8 @@ import {IndexComponent} from './index/index.component';
 import { RegisterComponent } from './register/register.component';
 import {CoursComponent} from './cours/cours.component';
 import { ShowCoursComponent } from './show-cours/show-cours.component';
+import { ExercicesComponent } from './exercices/exercices.component';
+
 
 
 const routes: Routes = [
@@ -36,6 +38,10 @@ const routes: Routes = [
   {
     path: 'showCours',
     component: ShowCoursComponent
+  },
+  {
+    path: 'exercice',
+    component: ExercicesComponent
   }
 
 ];

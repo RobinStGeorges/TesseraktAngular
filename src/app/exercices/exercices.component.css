@@ -25,3 +25,11 @@
 .list-group-item{
   border-color: #F5B82E;
 }
+
+.exo-status-valide{
+  color: greenyellow;
+}
+
+.exo-status-a-faire {
+  color: red;
+}

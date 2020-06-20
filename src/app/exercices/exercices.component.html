@@ -1,0 +1,23 @@
+<div class=" page">
+  <div class="row">
+    <div class="col-xs-12 content-col">
+      <h2>Vos Exercice</h2>
+      <div class="list-group">
+        <div
+          class="list-group-item"
+          *ngFor="let exercice of items; let i = index">
+          <h3 class="list-group-item-heading titre">
+            <a (click)="showOneExercice(exercice.payload.doc.data().numero )" > {{ exercice.payload.doc.data().titre }}</a>
+          </h3>
+          <!--          <p class="list-group-item-text">{{ cours.payload.doc.data().contenu }}</p>-->
+        <span class="exo-status-valide" *ngIf="exercice.payload.doc.data().isDone === true">
+          validé
+        </span>
+        <span class="exo-status-a-faire" *ngIf="exercice.payload.doc.data().isDone === false">
+          à faire
+        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

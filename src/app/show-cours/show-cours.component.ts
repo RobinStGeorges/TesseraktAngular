@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursDataService } from '../service/cours/cours-data.service';
 import {ActivatedRoute} from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-show-cours',
@@ -24,6 +24,7 @@ export class ShowCoursComponent implements OnInit {
   item: any;
   items: Array<any>;
   videoUrl: string;
+  displayURL: SafeResourceUrl;
 
   ngOnInit(): void {
     this.idCours = Number(this.route.snapshot.queryParamMap.get('id'));
@@ -38,7 +39,9 @@ export class ShowCoursComponent implements OnInit {
   }
 
   getCleanUrl(url: string){
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url + '&output=embed');
+    console.log(url);
+    this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl(url.trim());
+    // return this.sanitizer.bypassSecurityTrustResourceUrl(url + '&output=embed');
   }
 
 }
