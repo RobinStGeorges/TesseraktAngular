@@ -1,0 +1,26 @@
+.page{
+  background-color: #456990;
+  color:white;
+  border-color: #F5B82E;
+  border-width : 2px ;
+  border-style: solid;
+  height: 90vh;
+  text-align: center;
+}
+
+.titre{
+  text-align: left;
+  font-family: Roboto, serif;
+  margin: 3%;
+}
+
+.contenu{
+  text-align: left;
+  font-family: Roboto, serif;
+  margin: 3%;
+}
+
+.video{
+  align-content: center;
+  margin: 3%;
+}

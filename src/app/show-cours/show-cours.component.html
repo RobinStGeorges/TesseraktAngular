@@ -1,1 +1,28 @@
-<p>show-cours works!</p>
+<div class="page">
+  <div *ngFor="let cours of items; let i = index">
+    <div class="row">
+      <div class="col">
+
+        <div class="titre">
+            <h1>{{ cours.payload.doc.data().titre }}</h1>
+        </div>
+
+        <hr>
+
+        <div class="contenu">
+          <p>{{ cours.payload.doc.data().contenu }}</p>
+        </div>
+
+      </div>
+
+      <div class="col video">
+        <!--      <img class="img" src="assets/light_bulb.png" alt="bulb"  />-->
+        <iframe width="560" height="315" [src]="getCleanUrl( cours.payload.doc.data().videoLink)" frameborder="0" target="_parent" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+

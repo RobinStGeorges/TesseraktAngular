@@ -25,6 +25,6 @@ export class CoursDataService {
   }
 
   getOneCours(numero: number){
-    return this.db.collection('/cours', ref => ref.where('numero', '==', numero)).snapshotChanges();
+    return this.db.collection('cours', ref => ref.where('numero', '==', numero)).snapshotChanges();
   }
 }

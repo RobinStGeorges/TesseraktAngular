@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursDataService } from '../service/cours/cours-data.service';
 import {ActivatedRoute} from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-show-cours',
@@ -9,34 +10,35 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ShowCoursComponent implements OnInit {
 
-  cours: any;
-  idCours: number;
-  item: any;
-
   constructor(
     private cds: CoursDataService,
     private route: ActivatedRoute,
-  ) { }
+    private sanitizer: DomSanitizer
+  ) {
+
+  }
+;
+
+  cours: any;
+  idCours: number;
+  item: any;
+  items: Array<any>;
+  videoUrl: string;
 
   ngOnInit(): void {
-    // this.route.data.subscribe(routeData => {
-    //   const data = routeData.data;
-    //   if (data) {
-    //     this.item = data.payload.data();
-    //     this.idCours = data.payload.id;
-    //   }
-    // });
     this.idCours = Number(this.route.snapshot.queryParamMap.get('id'));
-    console.log('tttttest');
-    console.log(this.idCours);
     this.getData(this.idCours);
   }
 
   getData(idCours: number){
     this.cds.getOneCours(idCours)
       .subscribe(result => {
-        this.cours = result;
+        this.items = result;
       });
+  }
+
+  getCleanUrl(url: string){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url + '&output=embed');
   }
 
 }
