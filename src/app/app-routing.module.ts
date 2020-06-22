@@ -33,14 +33,17 @@ const routes: Routes = [
   },
   {
     path: 'cours',
+    canActivate: [AuthGuard],
     component: CoursComponent
   },
   {
     path: 'showCours',
+    canActivate: [AuthGuard],
     component: ShowCoursComponent
   },
   {
     path: 'exercice',
+    canActivate: [AuthGuard],
     component: ExercicesComponent
   }
 
