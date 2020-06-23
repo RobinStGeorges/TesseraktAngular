@@ -8,12 +8,23 @@ import { DataService } from '../service/data/data.service';
 })
 export class IndexComponent implements OnInit {
 
+  itemsPerSlide = 2;
+  singleSlideOffset = false;
+  noWrap = false;
+
+  slides = [
+    {image: 'assets/boiteInterne.jpg'},
+    {image: 'assets/boiteMaster.png'}
+  ];
+
   constructor(
 
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-
   }
+
+
 
 }

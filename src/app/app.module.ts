@@ -22,6 +22,11 @@ import { CoursComponent } from './cours/cours.component';
 import { ShowCoursComponent } from './show-cours/show-cours.component';
 import {SafePipeModule} from 'safe-pipe';
 import { ExercicesComponent } from './exercices/exercices.component';
+import {SlideshowModule} from 'ng-simple-slideshow';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CarouselModule} from 'ngx-bootstrap/carousel';
+import { ShowExercicesComponent } from './show-exercices/show-exercices.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,8 @@ import { ExercicesComponent } from './exercices/exercices.component';
     RegisterComponent,
     CoursComponent,
     ShowCoursComponent,
-    ExercicesComponent
+    ExercicesComponent,
+    ShowExercicesComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +51,11 @@ import { ExercicesComponent } from './exercices/exercices.component';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireModule,
-    SafePipeModule
+    SafePipeModule,
+    SlideshowModule,
+    NgImageSliderModule,
+    BrowserAnimationsModule,
+    CarouselModule
   ],
   providers: [
     AuthService,

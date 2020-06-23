@@ -1,32 +1,43 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { AngularFireDatabase,  } from 'angularfire2/database';
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../../environments/environment';
 import DataSnapshot = firebase.database.DataSnapshot;
 import { CoursDataService } from '../service/cours/cours-data.service';
 import { Cours } from '../service/cours/cours-data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { DataService } from '../service/data/data.service';
+import {HttpHeaders} from '@angular/common/http';
+
+// Set the http options
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'c31z' })
+};
+
 
 @Component({
   selector: 'app-cours',
   templateUrl: './cours.component.html',
   styleUrls: ['./cours.component.css']
 })
+
 export class CoursComponent implements OnInit{
 
   items: Array<any>;
+  tousLesCours: any[];
 
   constructor(
     private coursService: CoursDataService,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) {
 
   }
 
   ngOnInit(): void {
     this.getData();
-    console.log(this.items);
+    this.getAllCours();
   }
 
   getData(){
@@ -34,6 +45,10 @@ export class CoursComponent implements OnInit{
       .subscribe(result => {
         this.items = result;
       });
+  }
+
+  getAllCours(){
+    this.tousLesCours = this.dataService.getAllCours();
   }
 
 

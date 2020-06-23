@@ -11,6 +11,15 @@
           </h3>
 <!--          <p class="list-group-item-text">{{ cours.payload.doc.data().contenu }}</p>-->
         </div>
+
+        <div
+          class="list-group-item"
+          *ngFor="let cours of tousLesCours; ">
+          <div>
+            {{ cours }}
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

@@ -1,0 +1,39 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+.page{
+  background-color: #456990;
+  color:white;
+  border-color: #F5B82E;
+  border-width : 2px ;
+  border-style: solid;
+  height: 90vh;
+  text-align: center;
+}
+
+a{
+  color: #9FE855;
+}
+
+.bording{
+  border: 1px darkgray solid;
+  border-radius: 16px;
+  margin: 2%;
+}
+
+.content{
+  text-align: left;
+  margin: 2%;
+}
+
+.carousel{
+  margin: 10%;
+  padding: 10%;
+
+}
+
+img{
+  height: 30px;
+  height: auto;
+
+}
+
+
