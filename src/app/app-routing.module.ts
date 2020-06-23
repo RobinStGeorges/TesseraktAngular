@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import {CoursComponent} from './cours/cours.component';
 import { ShowCoursComponent } from './show-cours/show-cours.component';
 import { ExercicesComponent } from './exercices/exercices.component';
+import {ShowExercicesComponent} from './show-exercices/show-exercices.component';
 
 
 
@@ -45,7 +46,12 @@ const routes: Routes = [
     path: 'exercice',
     canActivate: [AuthGuard],
     component: ExercicesComponent
-  }
+  } ,
+  {
+    path: 'showExercice',
+    canActivate: [AuthGuard],
+    component: ShowExercicesComponent
+  },
 
 ];
 

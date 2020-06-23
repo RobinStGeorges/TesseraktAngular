@@ -10,17 +10,19 @@
         <hr>
 
         <div class="contenu">
-          <p>{{ cours.payload.doc.data().contenu }}</p>
+          <p class="list-group-item-text" [innerHTML]="cours.payload.doc.data().contenu "></p>
         </div>
 
       </div>
 
       <div class="col video">
         <!--      <img class="img" src="assets/light_bulb.png" alt="bulb"  />-->
-        <iframe width="560" height="315" [src]="getCleanUrl( cours.payload.doc.data().videoLink)" frameborder="0" target="_parent" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>        </div>
-      </div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/JDXepCfY2cg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>      </div>
     </div>
+
+    <a class="nav-link" href="/exercice">Passer à l'exercice</a>
   </div>
+</div>
 
 
 

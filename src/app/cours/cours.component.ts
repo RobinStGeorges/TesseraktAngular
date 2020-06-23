@@ -26,6 +26,7 @@ export class CoursComponent implements OnInit{
 
   items: Array<any>;
   tousLesCours: any[];
+  stringContenu: string;
 
   constructor(
     private coursService: CoursDataService,
@@ -37,7 +38,6 @@ export class CoursComponent implements OnInit{
 
   ngOnInit(): void {
     this.getData();
-    this.getAllCours();
   }
 
   getData(){
@@ -47,9 +47,6 @@ export class CoursComponent implements OnInit{
       });
   }
 
-  getAllCours(){
-    this.tousLesCours = this.dataService.getAllCours();
-  }
 
 
   showOneCours(numero: number) {

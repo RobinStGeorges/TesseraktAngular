@@ -1,1 +1,39 @@
-<p>show-exercices works!</p>
+<div class="page">
+  <div *ngFor="let exercice of items; let i = index">
+    <div class="row">
+      <div class="col-6">
+
+        <div class="titre">
+          <h1>{{ exercice.payload.doc.data().titre }}</h1>
+        </div>
+
+        <hr>
+
+        <div class="contenu">
+          <p class="list-group-item-text" [innerHTML]="exercice.payload.doc.data().contenu "></p>
+        </div>
+
+      </div>
+
+      <div class="col-6">
+              <img class="img" src="assets/light_bulb.png" alt="bulb"  />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <button type="button" class="btn btn-primary">Comparer la réponse</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-warning">Voir la réponse</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-danger">Valider l'exercice</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
