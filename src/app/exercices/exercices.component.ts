@@ -4,6 +4,9 @@ import { ExerciceService } from '../service/exercice/exercice.service';
 import {Cours, CoursDataService} from '../service/cours/cours-data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import {take} from 'rxjs/operators';
+import {DataService} from '../service/data/data.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-exercices',
@@ -14,16 +17,23 @@ export class ExercicesComponent implements OnInit {
 
   items: Array<any>;
 
+  lesExercices = [];
+
   constructor(
     private exerciceService: ExerciceService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
 
   }
 
   ngOnInit(): void {
-    this.getData();
-    console.log(this.items);
+    this.http.get('http://localhost:3000/exercices/')
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        console.log(response);
+        this.lesExercices = response;
+      });
   }
 
   getData(){

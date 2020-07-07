@@ -5,22 +5,11 @@
       <div class="list-group">
         <div
           class="list-group-item"
-          *ngFor="let cours of items; let i = index">
+          *ngFor="let cours of lesCours; let i = index">
           <h3 class="list-group-item-heading titre">
-            <a (click)="showOneCours(cours.payload.doc.data().numero )" > {{ cours.payload.doc.data().titre }}</a>
+            <a (click)="showOneCours(cours.id_cours)" > {{ cours.titre }}</a>
           </h3>
         </div>
-
-<!--        {{ tousLesCours }}-->
-
-<!--        <div-->
-<!--          class="list-group-item"-->
-<!--          *ngFor="let cours of tousLesCours">-->
-
-<!--          <div class="list-group-item-heading">-->
-<!--            prout-->
-<!--          </div>-->
-<!--        </div>-->
 
       </div>
     </div>

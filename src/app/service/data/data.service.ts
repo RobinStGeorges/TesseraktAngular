@@ -41,26 +41,18 @@ export class DataService {
   constructor(
     private firestore: AngularFirestore,
     private http: HttpClient,
+    public db: AngularFirestore
   ) {
     this.http.get('http://localhost:3000/cours/').
     toPromise().then(data => {
-      console.log(Object.keys(data).map(key => ({type: key, value: data[key]})));
-
-      // tslint:disable-next-line:forin
-      for (const uneData in data) {
-        console.log(uneData[0][0]);
-      }
+      console.log(Object.keys(data).map(key => ({type: key, value: data[key]}))[0].value.description);
       }
     );
   }
 
-
-
-  getOneCoursById(id: number){
-    return this.http
-      .get('http://localhost:3000/cours/' + id);
+  getOneExercice(numero: number) {
+    return this.db.collection('exercices', ref => ref.where('numero', '==', numero)).snapshotChanges();
   }
-
 
 
 }

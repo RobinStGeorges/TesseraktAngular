@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursDataService } from '../service/cours/cours-data.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {take} from 'rxjs/operators';
+import {DataService} from '../service/data/data.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-show-cours',
@@ -13,11 +16,13 @@ export class ShowCoursComponent implements OnInit {
   constructor(
     private cds: CoursDataService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
+    private router: Router
   ) {
 
   }
-;
+
 
   cours: any;
   idCours: number;
@@ -28,20 +33,17 @@ export class ShowCoursComponent implements OnInit {
 
   ngOnInit(): void {
     this.idCours = Number(this.route.snapshot.queryParamMap.get('id'));
-    this.getData(this.idCours);
-  }
-
-  getData(idCours: number){
-    this.cds.getOneCours(idCours)
-      .subscribe(result => {
-        this.items = result;
+    // this.getData(this.idCours);
+    this.http.get('http://localhost:3000/cours/' + this.idCours)
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        console.log(response);
+        this.item = response;
       });
   }
 
-  getCleanUrl(url: string){
-    console.log(url);
-    this.displayURL = this.sanitizer.bypassSecurityTrustResourceUrl(url.trim());
-    // return this.sanitizer.bypassSecurityTrustResourceUrl(url + '&output=embed');
+  showExerciceById(numero: number) {
+    this.router.navigate(['/showExercice'], {queryParams: {id: numero}});
   }
 
 }

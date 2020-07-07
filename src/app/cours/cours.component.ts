@@ -8,12 +8,10 @@ import { Cours } from '../service/cours/cours-data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { DataService } from '../service/data/data.service';
-import {HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {take} from 'rxjs/operators';
+import {AngularFirestore} from '@angular/fire/firestore';
 
-// Set the http options
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'c31z' })
-};
 
 
 @Component({
@@ -24,26 +22,24 @@ const httpOptions = {
 
 export class CoursComponent implements OnInit{
 
-  items: Array<any>;
-  tousLesCours: any[];
-  stringContenu: string;
+  allCours: Cours[];
+  lesCours = [];
+
 
   constructor(
     private coursService: CoursDataService,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private http: HttpClient
   ) {
 
   }
-
   ngOnInit(): void {
-    this.getData();
-  }
-
-  getData(){
-    this.coursService.getAllCours()
-      .subscribe(result => {
-        this.items = result;
+    this.http.get('http://localhost:3000/cours/')
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        console.log(response);
+        this.lesCours = response;
       });
   }
 

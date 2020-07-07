@@ -30,6 +30,7 @@ p{
 }
 
 img{
-  height: 200px;
+  height: 400px;
   width: auto;
+  border-radius: 20px;
 }
