@@ -59,13 +59,5 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  // versiontest
-  // register() {
-  //   console.log('Tentative de creation de compte');
-  //
-  //   // Vérifier que login/mdp sont correctes, par exemple par une requête à un service REST
-  //   localStorage.setItem('user', JSON.stringify({login : this.model.username}));
-  //   this.router.navigate(['/home']);
-  // }
 
 }

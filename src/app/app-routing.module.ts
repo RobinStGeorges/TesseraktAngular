@@ -11,7 +11,7 @@ import {CoursComponent} from './cours/cours.component';
 import { ShowCoursComponent } from './show-cours/show-cours.component';
 import { ExercicesComponent } from './exercices/exercices.component';
 import {ShowExercicesComponent} from './show-exercices/show-exercices.component';
-
+import {ProfilComponent} from './profil/profil.component';
 
 
 const routes: Routes = [
@@ -51,6 +51,11 @@ const routes: Routes = [
     path: 'showExercice',
     canActivate: [AuthGuard],
     component: ShowExercicesComponent
+  },
+  {
+    path: 'profil',
+    canActivate: [AuthGuard],
+    component: ProfilComponent
   },
 
 ];

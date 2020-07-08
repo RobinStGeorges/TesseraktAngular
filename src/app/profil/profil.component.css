@@ -1,0 +1,31 @@
+.page{
+  background-color: #456990;
+  color: darkgray;
+  border-color: #F5B82E;
+  border-width : 2px ;
+  border-style: solid;
+  height: 90vh;
+  text-align: center;
+  align-content: center;
+}
+
+#data-content{
+  border-color: #F5B82E;
+  border-width : 2px ;
+  border-style: solid;
+  min-height: 100px;
+  margin: 10px;
+}
+
+#btn-content{
+  padding: 10px;
+  margin: 10px;
+}
+
+h1{
+  font-size: 24px;
+}
+
+p{
+  font-size: 20px;
+}

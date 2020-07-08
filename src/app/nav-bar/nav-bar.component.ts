@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {isNull} from "util";
+import {isNull} from 'util';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,6 +23,8 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
+    console.log('Tentative de déconnexion');
+
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
   }

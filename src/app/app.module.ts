@@ -30,6 +30,7 @@ import { ShowExercicesComponent } from './show-exercices/show-exercices.componen
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RouterModule, Routes } from '@angular/router';
     CoursComponent,
     ShowCoursComponent,
     ExercicesComponent,
-    ShowExercicesComponent
+    ShowExercicesComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,

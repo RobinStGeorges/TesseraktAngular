@@ -32,27 +32,10 @@ interface ItemsResponse {
 })
 export class DataService {
 
-  adminCollection: AngularFirestoreCollection<Admin>;
-  admins: Observable<Admin[]>;
-  // tslint:disable-next-line:ban-types
-  items: { type: string; value: any }[] = [];
-  // tslint:disable-next-line:max-line-length
-
   constructor(
     private firestore: AngularFirestore,
     private http: HttpClient,
     public db: AngularFirestore
   ) {
-    this.http.get('http://localhost:3000/cours/').
-    toPromise().then(data => {
-      console.log(Object.keys(data).map(key => ({type: key, value: data[key]}))[0].value.description);
-      }
-    );
   }
-
-  getOneExercice(numero: number) {
-    return this.db.collection('exercices', ref => ref.where('numero', '==', numero)).snapshotChanges();
-  }
-
-
 }

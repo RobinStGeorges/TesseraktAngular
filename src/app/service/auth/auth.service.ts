@@ -44,4 +44,8 @@ export class AuthService {
       }
     );
   }
+
+  deleteUser(){
+    firebase.auth().currentUser.delete();
+  }
 }
