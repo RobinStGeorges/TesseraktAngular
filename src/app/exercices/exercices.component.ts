@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import DataSnapshot = firebase.database.DataSnapshot;
 import { ExerciceService } from '../service/exercice/exercice.service';
-import {Cours, CoursDataService} from '../service/cours/cours-data.service';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {take} from 'rxjs/operators';
-import {DataService} from '../service/data/data.service';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -14,8 +10,6 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./exercices.component.css']
 })
 export class ExercicesComponent implements OnInit {
-
-  items: Array<any>;
 
   lesExercices = [];
 
@@ -28,18 +22,14 @@ export class ExercicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllExercicesData();
+  }
+
+  getAllExercicesData(){
     this.http.get('http://localhost:3000/exercices/')
       .pipe(take(1))
       .subscribe((response: any[]) => {
-        console.log(response);
         this.lesExercices = response;
-      });
-  }
-
-  getData(){
-    this.exerciceService.getAllExercice()
-      .subscribe(result => {
-        this.items = result;
       });
   }
 

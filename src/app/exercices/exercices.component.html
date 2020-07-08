@@ -10,10 +10,10 @@
             <a (click)="showOneExercice(exercice.id_exercice )" > {{ exercice.titre }}</a>
           </h3>
           <!--          <p class="list-group-item-text">{{ cours.payload.doc.data().contenu }}</p>-->
-        <span class="exo-status-valide" *ngIf="exercice.payload.doc.data().isDone === true">
+        <span class="exo-status-valide" *ngIf="exercice.isDone === true">
           validé
         </span>
-        <span class="exo-status-a-faire" *ngIf="exercice.payload.doc.data().isDone === false">
+        <span class="exo-status-a-faire" *ngIf="exercice.isDone === false">
           à faire
         </span>
         </div>

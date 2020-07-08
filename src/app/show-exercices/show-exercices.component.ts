@@ -35,7 +35,6 @@ export class ShowExercicesComponent implements OnInit {
     this.http.get('http://localhost:3000/exercices/' + this.idExercice)
       .pipe(take(1))
       .subscribe((response: any[]) => {
-        console.log(response);
         this.item = response;
       });
   }

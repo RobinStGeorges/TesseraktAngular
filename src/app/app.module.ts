@@ -27,6 +27,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CarouselModule} from 'ngx-bootstrap/carousel';
 import { ShowExercicesComponent } from './show-exercices/show-exercices.component';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,7 @@ import { ShowExercicesComponent } from './show-exercices/show-exercices.componen
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig, 'TesseraktAngular'),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireModule,
@@ -55,7 +58,11 @@ import { ShowExercicesComponent } from './show-exercices/show-exercices.componen
     SlideshowModule,
     NgImageSliderModule,
     BrowserAnimationsModule,
-    CarouselModule
+    CarouselModule,
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule, // storage
+    RouterModule.forRoot([])
   ],
   providers: [
     AuthService,
