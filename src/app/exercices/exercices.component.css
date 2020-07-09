@@ -24,6 +24,9 @@
 
 .list-group-item{
   border-color: #F5B82E;
+  border-width : 3px ;
+  border-style: solid;
+  border-radius: 10px;
 }
 
 .exo-status-valide{

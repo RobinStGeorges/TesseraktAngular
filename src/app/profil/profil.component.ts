@@ -4,6 +4,8 @@ import {AuthService} from '../service/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import {take} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-profil',
@@ -14,24 +16,35 @@ export class ProfilComponent implements OnInit {
   userEmail: string;
 
   showModal: boolean;
+  showModalData: boolean;
   registerForm: FormGroup;
   submitted = false;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   show()
   {
-    this.showModal = true; // Show-Hide Modal Check
+    this.showModal = true;
 
   }
-  // Bootstrap Modal Close event
+
+  showData()
+  {
+    this.showModalData = true;
+  }
+
   hide()
   {
     this.showModal = false;
+  }
+
+  hideDeleteData(){
+    this.showModalData = false;
   }
 
   ngOnInit(): void {
@@ -69,7 +82,12 @@ export class ProfilComponent implements OnInit {
   }
 
   deleteuserData(){
-
+    this.http.get('http://localhost:3000/user/delete/' + JSON.parse(localStorage.getItem('user')).login)
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        console.log(response);
+      });
+    this.router.navigate(['/profil']);
   }
 
   deleteUser(){

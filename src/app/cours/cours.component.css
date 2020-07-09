@@ -24,4 +24,10 @@
 
 .list-group-item{
   border-color: #F5B82E;
+  border-width : 3px ;
+  border-style: solid;
+}
+
+.titre{
+
 }

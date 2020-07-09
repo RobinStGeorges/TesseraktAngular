@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col-6">
-        <button (click)="deleteuserData" class="btn btn-warning">Supprimer mes données</button>
+        <button (click)="showData()" class="btn btn-warning">Supprimer mes données</button>
         <button (click)="show()" class="btn btn-danger">Supprimer mon compte</button>
       </div>
       <div class="col-3"></div>
@@ -26,6 +26,7 @@
 
 </div>
 
+<!--MODAL sup compte-->
 <div [style.display]="showModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -65,6 +66,26 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "hide()">Annuler</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL SUP DATA-->
+<!--MODAL sup compte-->
+<div [style.display]="showModalData ? 'block' : 'none'" class="modal" id="imagemodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel2">Supprimer mes données</h4>
+      </div>
+      <div class="modal-body">
+        <p>Voulez-vous vraiment supprimer vos données ?</p>
+        <p><button (click)="deleteuserData()" class="btn btn-warning">Supprimer les donner</button></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "hideDeleteData()">Annuler</button>
 
       </div>
     </div>
