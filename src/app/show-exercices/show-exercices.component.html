@@ -17,10 +17,17 @@
           <hr>
           <div class="contenu">
             <p class="list-group-item-text" [innerHTML]="exercice.contenu "></p>
+            <p> Vous aurez besoin de ces cubes :</p>
+            <div *ngFor="let cube of cubeNeeded | keyvalue">
+              <div class="cubeValue">
+                {{ cube.value }}
+              </div>
+
+            </div>
           </div>
         </div>
         <div class="col-6">
-                <img id="imgDiv" class="img" [src]= "imgUrl"  />
+          <img id="imgDiv" class="img" [src]= "imgUrl"  >
         </div>
       </div>
 
@@ -42,6 +49,9 @@
       </div>
 
     </div>
+
+
+
   </div>
 </div>
 

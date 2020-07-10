@@ -14,11 +14,11 @@ import {HttpClient} from '@angular/common/http';
 export class ShowExercicesComponent implements OnInit {
 
   idExercice: number;
-  items: Array<any>;
   imgUrl: string;
   exercice: any;
   showExercice: boolean;
   item: any;
+  cubeNeeded: any;
 
 
   constructor(
@@ -38,6 +38,22 @@ export class ShowExercicesComponent implements OnInit {
       .pipe(take(1))
       .subscribe((response: any[]) => {
         this.item = response;
+        const object = JSON.parse(response[0].cube_needed);
+        // tslint:disable-next-line:only-arrow-functions
+        const result = Object.keys(object).map(function(e){
+          // tslint:disable-next-line:only-arrow-functions
+          Object.keys(object[e]).forEach(function(k){
+            if (typeof object[e][k] === 'object') {
+              // tslint:disable-next-line:only-arrow-functions
+              object[e][k] = Object.keys(object[e][k]).map(function(l){
+                return object[e][k][l];
+              });
+            }
+          });
+          return object[e];
+        });
+        this.cubeNeeded = result;
+        // console.log(result);
       });
 
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
@@ -48,7 +64,6 @@ export class ShowExercicesComponent implements OnInit {
       '/' + this.idExercice)
       .pipe(take(1))
       .subscribe((response: any[]) => {
-        console.log(response);
         // si pas de resultat, creer une entrée
         if (!response[0]){
           this.http.get('http://localhost:3000/exercices/createuserdatarow/' + this.idExercice + '/' + emailModified)
@@ -72,12 +87,6 @@ export class ShowExercicesComponent implements OnInit {
 
         }
       });
-
-
-  }
-
-  setIsStartedByIdExoAndEmail(idExo, email ){
-
   }
 
   changeImg(path: string) {
@@ -85,4 +94,6 @@ export class ShowExercicesComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     this.showExercice = !this.showExercice;
   }
+
+
 }
