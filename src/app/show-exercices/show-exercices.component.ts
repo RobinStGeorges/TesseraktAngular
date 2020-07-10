@@ -19,6 +19,7 @@ export class ShowExercicesComponent implements OnInit {
   showExercice: boolean;
   item: any;
   cubeNeeded: any;
+  responseIsCorrect = -1;
 
 
   constructor(
@@ -94,6 +95,25 @@ export class ShowExercicesComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     this.showExercice = !this.showExercice;
   }
+
+  checkWithCubes(){
+    const emailModified = JSON.parse(localStorage.getItem('user')).login.
+    replace('@', '%40').replace('.', '%point');
+    this.http.get('http://localhost:3000/reponse/' +
+      emailModified +
+      '/' + this.idExercice)
+      .pipe(take(1))
+      .subscribe((response: number) => {
+        // tslint:disable-next-line:triple-equals
+        if (response == 1){
+          alert('Vous avez trouvé la bonne solution grace aux cubes ! Félicitation ! Vous pouvez passer au cours suivant !');
+        }
+        else{
+          alert('Cela n\'est pas la bonne réponse ! Essayer encore, ou regarder le cours ou la solution');
+        }
+      });
+  }
+
 
 
 }
