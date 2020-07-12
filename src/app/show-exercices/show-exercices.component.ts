@@ -20,6 +20,8 @@ export class ShowExercicesComponent implements OnInit {
   item: any;
   cubeNeeded: any;
   responseIsCorrect = -1;
+  x = 0;
+  y = 0;
 
 
   constructor(
@@ -113,6 +115,19 @@ export class ShowExercicesComponent implements OnInit {
         }
       });
   }
+
+  arrayOne(n: number): any[] {
+    return Array(n);
+  }
+
+  incrementX(){
+    this.x = this.x + 1;
+  }
+
+  incrementY(){
+    this.y = this.y + 1;
+  }
+
 
 
 
