@@ -4,8 +4,9 @@
   border-color: #F5B82E;
   border-width : 2px ;
   border-style: solid;
-  height: 90vh;
+  /*height: 90vh;*/
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .titre{
@@ -43,4 +44,61 @@ img{
   border-width : 2px ;
   border-style: solid;
   text-align: center;
+}
+
+.masterCube{
+  height: 200px;
+  width: 200px;
+  background-color: #F5B82E;
+}
+
+.cube{
+  height: 200px;
+  width: 200px;
+  border: #F5B82E;
+  border-width : 2px ;
+  border-style: solid;
+  text-align: center;
+  vertical-align: middle;
+  color: #04080F;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.table-content{
+  text-align: center;
+  margin: 0 auto;
+  width:100px;
+}
+
+.vide{
+  background-color: #456990;
+  vertical-align: middle;
+}
+
+.AVANCER{
+  background-color: crimson;
+  vertical-align: middle;
+}
+
+.EGUAL{
+  background-color: green;
+  vertical-align: middle;
+}
+
+.TROIS{
+  background-color: slateblue;
+  vertical-align: middle;
+}
+
+.UN{
+  background-color: lawngreen;
+}
+
+.DEUX{
+  background-color: aquamarine;
+}
+
+.VIRAGEGAUCHE{
+  background-color: antiquewhite;
 }

@@ -21,6 +21,7 @@
             <div *ngFor="let cube of cubeNeeded | keyvalue">
               <div class="cubeValue">
                 {{ cube.value }}
+                {{ addClassToArray(cube.value) }}
               </div>
 
             </div>
@@ -28,32 +29,6 @@
         </div>
         <div class="col-6">
           <img id="imgDiv" class="img" [src]= "imgUrl"  >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
-
-        </div>
-        <div class="col-6">
-          <p>
-            Pas de cubes ? Tentez de résoudre l'exercice ici avant de regarder la réponse !
-          </p>
-<!--parcourt la taille de matrice de bdd, et creer un tableau selon cette taille-->
-          <table>
-            <span *ngFor="let item_y of arrayOne(exercice.matrix_size_y); let i = index;">
-              {{ this.y+i }}
-              <tr>
-               <span *ngFor="let item_x of arrayOne(exercice.matrix_size_x); let i = index;">
-                 {{ this.x+i }}
-               </span>
-              </tr>
-            </span>
-          </table>
-
-        </div>
-        <div class="col-3">
-
         </div>
       </div>
 
@@ -73,6 +48,41 @@
           <button type="button" class="btn btn-danger">Valider l'exercice</button>
         </div>
       </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6 table-content">
+          <p>
+            Pas de cubes ? Tentez de résoudre l'exercice ici avant de regarder la réponse !
+          </p>
+<!--parcourt la taille de matrice de bdd, et creer un tableau selon cette taille-->
+            <table>
+              <tr>
+                <td>
+                  <div class="masterCube">
+                  </div>
+                </td>
+              </tr>
+              <div *ngFor="let item_y of arrayOne(exercice.matrix_size_y); let iy = index;">
+                <tr>
+                 <span *ngFor="let item_x of arrayOne(exercice.matrix_size_x); let ix = index;">
+                   <td (click)="manageClass(''+this.y+iy+''+this.x+ix )" class="cube vide" id="{{ ''+this.y+iy+''+this.x+ix }}">
+                   </td>
+                 </span>
+                </tr>
+              </div>
+            </table>
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
+
+
 
     </div>
 

@@ -5,6 +5,8 @@ import {Component, OnInit} from '@angular/core';
 import { DataService } from '../service/data/data.service';
 import {take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-show-exercices',
@@ -22,6 +24,7 @@ export class ShowExercicesComponent implements OnInit {
   responseIsCorrect = -1;
   x = 0;
   y = 0;
+  classList: string[] = ['vide'];
 
 
   constructor(
@@ -29,7 +32,8 @@ export class ShowExercicesComponent implements OnInit {
     private ds: DataService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject(DOCUMENT) document
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +60,6 @@ export class ShowExercicesComponent implements OnInit {
           return object[e];
         });
         this.cubeNeeded = result;
-        // console.log(result);
       });
 
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
@@ -72,7 +75,6 @@ export class ShowExercicesComponent implements OnInit {
           this.http.get('http://localhost:3000/exercices/createuserdatarow/' + this.idExercice + '/' + emailModified)
             .pipe(take(1))
             .subscribe((response2: any[]) => {
-              console.log('entrée bien créée');
             });
         }
         // si resultat:
@@ -85,7 +87,6 @@ export class ShowExercicesComponent implements OnInit {
           this.http.get('http://localhost:3000/exercices/setIsStarted/' + this.idExercice + '/' + emailModified)
             .pipe(take(1))
             .subscribe((response2: any[]) => {
-              console.log('entrée bien mise à jour');
             });
 
         }
@@ -120,12 +121,32 @@ export class ShowExercicesComponent implements OnInit {
     return Array(n);
   }
 
-  incrementX(){
-    this.x = this.x + 1;
+  manageClass(id: string){
+    this.classList =  this.classList.filter((el, i, a) => i === a.indexOf(el));
+    const divById = document.getElementById(id);
+    if (divById.classList.contains('vide')){
+      // regarde si la div est init, si non init avec arrayCubenedeed[0]
+      divById.classList.remove('vide');
+      divById.classList.add(this.classList[1]);
+      divById.innerText = this.classList[1];
+    }
+    else{
+      // met la class +1 dans la liste des class needed, si out of bound, 0
+      const arraysize = this.classList.length;
+      const indexClassInArray = this.classList.indexOf(divById.classList[1]);
+      if (indexClassInArray + 1 > arraysize){
+        divById.classList.remove(divById.classList[1]);
+        divById.classList.add(this.classList[0]);
+        divById.innerText = this.classList[0];
+      }
+      divById.classList.remove(divById.classList[1]);
+      divById.classList.add(this.classList[indexClassInArray + 1]);
+      divById.innerText = this.classList[indexClassInArray + 1];
+    }
   }
 
-  incrementY(){
-    this.y = this.y + 1;
+  addClassToArray(className: string){
+    this.classList.push(className);
   }
 
 
