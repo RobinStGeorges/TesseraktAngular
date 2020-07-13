@@ -82,7 +82,7 @@ export class ProfilComponent implements OnInit {
   }
 
   deleteuserData(){
-    this.http.get('http://localhost:3000/user/delete/' + JSON.parse(localStorage.getItem('user')).login)
+    this.http.get(environment.baseUrl + '/user/delete/' + JSON.parse(localStorage.getItem('user')).login)
       .pipe(take(1))
       .subscribe((response: any[]) => {
         console.log(response);

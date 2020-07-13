@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../service/data/data.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {take} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class CoursComponent implements OnInit{
   }
 
   getAllCours(){
-    this.http.get('http://localhost:3000/cours/')
+    this.http.get(environment.baseUrl + '/cours/')
       .pipe(take(1))
       .subscribe((response: any[]) => {
         this.lesCours = response;

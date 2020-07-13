@@ -7,6 +7,7 @@ import {take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-show-exercices',
@@ -37,15 +38,15 @@ export class ShowExercicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // get exercice dat aby ID
+    // RECUPERE LES DONNEES DE L EXERCICE PAR SON ID
     this.showExercice = true;
     this.idExercice = Number(this.route.snapshot.queryParamMap.get('id'));
-    // this.getData(this.idCours);
-    this.http.get('http://localhost:3000/exercices/' + this.idExercice)
+    this.http.get(environment.baseUrl + '/exercices/' + this.idExercice)
       .pipe(take(1))
       .subscribe((response: any[]) => {
         this.item = response;
         const object = JSON.parse(response[0].cube_needed);
+        // MAP LES DONNEES POUR RECUPERER UN ARRAY AVEC LES CUBES NECESSAIRES A L EXERCICE
         // tslint:disable-next-line:only-arrow-functions
         const result = Object.keys(object).map(function(e){
           // tslint:disable-next-line:only-arrow-functions
@@ -64,15 +65,15 @@ export class ShowExercicesComponent implements OnInit {
 
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
       replace('@', '%40').replace('.', '%point');
-    // regarder si resultat dans userdata pour exo id
-    this.http.get('http://localhost:3000/user/userdata/' +
+    // REGARDE SI L'UTILISATEUR A DEJA DES DONNEES SUR CET EXERCICE
+    this.http.get(environment.baseUrl + '/user/userdata/' +
       emailModified +
       '/' + this.idExercice)
       .pipe(take(1))
       .subscribe((response: any[]) => {
-        // si pas de resultat, creer une entrée
+        // SI PAS DE RESULTAT, CREER UNE ENTRÉE
         if (!response[0]){
-          this.http.get('http://localhost:3000/exercices/createuserdatarow/' + this.idExercice + '/' + emailModified)
+          this.http.get(environment.baseUrl + '/exercices/createuserdatarow/' + this.idExercice + '/' + emailModified)
             .pipe(take(1))
             .subscribe((response2: any[]) => {
             });
@@ -80,11 +81,11 @@ export class ShowExercicesComponent implements OnInit {
         // si resultat:
         // : is finished = true => disable btn + btn exo suivant
 
-        // si non : set is started true et dates tart now
+        // SET IS STARTED TRUE ET DATES TART NOW
         if (!response[0].is_started){
           // set is started to true
           // et date start to now
-          this.http.get('http://localhost:3000/exercices/setIsStarted/' + this.idExercice + '/' + emailModified)
+          this.http.get(environment.baseUrl + '/exercices/setIsStarted/' + this.idExercice + '/' + emailModified)
             .pipe(take(1))
             .subscribe((response2: any[]) => {
             });
@@ -99,10 +100,11 @@ export class ShowExercicesComponent implements OnInit {
     this.showExercice = !this.showExercice;
   }
 
+  // VERIFIE SI LES DONN2ES RECU DU CUBE CORRESPONDENT A LA REPONSE DE L'EXERCICE
   checkWithCubes(){
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
     replace('@', '%40').replace('.', '%point');
-    this.http.get('http://localhost:3000/reponse/' +
+    this.http.get(environment.baseUrl + '/reponse/' +
       emailModified +
       '/' + this.idExercice)
       .pipe(take(1))
@@ -117,21 +119,23 @@ export class ShowExercicesComponent implements OnInit {
       });
   }
 
+  // RETOURNE UN ARRAY AVEC N VALEURS
   arrayOne(n: number): any[] {
     return Array(n);
   }
 
+  // CHANGE LA CLASSE D'UNE CASE DU TABLEAU DE REPONSE SELON LA CLASSE ACTUELLE
   manageClass(id: string){
     this.classList =  this.classList.filter((el, i, a) => i === a.indexOf(el));
     const divById = document.getElementById(id);
     if (divById.classList.contains('vide')){
-      // regarde si la div est init, si non init avec arrayCubenedeed[0]
+      // REGARDE SI LA DIV EST INIT, SI NON INIT AVEC ARRAYCUBENEDEED[0]
       divById.classList.remove('vide');
       divById.classList.add(this.classList[1]);
       divById.innerText = this.classList[1];
     }
     else{
-      // met la class +1 dans la liste des class needed, si out of bound, 0
+      // MET LA CLASS +1 DANS LA LISTE DES CLASS NEEDED, SI OUT OF BOUND, 0
       const arraysize = this.classList.length;
       const indexClassInArray = this.classList.indexOf(divById.classList[1]);
       if (indexClassInArray + 1 > arraysize){

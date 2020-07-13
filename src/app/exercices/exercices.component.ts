@@ -3,6 +3,7 @@ import { ExerciceService } from '../service/exercice/exercice.service';
 import { Router } from '@angular/router';
 import {take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-exercices',
@@ -26,7 +27,7 @@ export class ExercicesComponent implements OnInit {
   }
 
   getAllExercicesData(){
-    this.http.get('http://localhost:3000/exercices/')
+    this.http.get(environment.baseUrl + '/exercices/')
       .pipe(take(1))
       .subscribe((response: any[]) => {
         this.lesExercices = response;

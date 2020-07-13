@@ -17,4 +17,7 @@ Il s'aggit du front-end du projet Tesserakt pour le projet annuel de l'ESGI par 
 
 `ng test` (karma)
 
+## Mise en prod
+ ng build –prod
+
 @Robin SAINT GEORGES

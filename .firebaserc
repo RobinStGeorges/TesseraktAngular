@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tesserakt-6980c": {
+      "hosting": {
+        "TesseraktAngular": [
+          "tesserakt-6980c"
+        ]
+      }
+    }
+  }
+}

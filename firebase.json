@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "TesseraktAngular",
+      "public": "dist/TesseraktAngular",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

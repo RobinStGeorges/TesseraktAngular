@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
     this.authService.signInUser(email, password).then(
       (data) => {
         localStorage.setItem('user', JSON.stringify({login : email}));
-        environment.email = email;
         this.router.navigate(['/home']);
       }
     ).catch(
