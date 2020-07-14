@@ -19,5 +19,7 @@ Il s'aggit du front-end du projet Tesserakt pour le projet annuel de l'ESGI par 
 
 ## Mise en prod
  ng build –prod
+ ng deploy
 
 @Robin SAINT GEORGES
+

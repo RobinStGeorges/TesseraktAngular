@@ -9,5 +9,6 @@ export const environment = {
     messagingSenderId: '457995310128',
     appId: '1:457995310128:web:6d260af93bc3defe4c09f5',
     measurementId: 'G-CXYYK8YBJ2'
-  }
+  },
+  baseUrl: 'https://tesseraktapi.osc-fr1.scalingo.io'
 };
