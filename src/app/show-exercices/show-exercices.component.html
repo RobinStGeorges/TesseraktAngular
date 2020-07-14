@@ -45,7 +45,7 @@
           <button type="button" class="btn btn-warning" (click)="changeImg(exercice.imgReponsePath)" >Voir la réponse</button>
         </div>
         <div class="col-4">
-          <button type="button" class="btn btn-danger">Valider l'exercice</button>
+          <button (click)="setFinished(exercice.id_exercice)" type="button" class="btn btn-danger">Valider l'exercice</button>
         </div>
       </div>
 

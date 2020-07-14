@@ -34,8 +34,7 @@ export class ShowCoursComponent implements OnInit {
 
   ngOnInit(): void {
     this.idCours = Number(this.route.snapshot.queryParamMap.get('id'));
-    // this.getData(this.idCours);
-    this.http.get(environment.baseUrl + '/cours/' + this.idCours)
+    this.http.get(environment.baseUrl + '/getCours/' + this.idCours)
       .pipe(take(1))
       .subscribe((response: any[]) => {
         this.item = response;

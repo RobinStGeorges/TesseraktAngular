@@ -41,7 +41,7 @@ export class ShowExercicesComponent implements OnInit {
     // RECUPERE LES DONNEES DE L EXERCICE PAR SON ID
     this.showExercice = true;
     this.idExercice = Number(this.route.snapshot.queryParamMap.get('id'));
-    this.http.get(environment.baseUrl + '/exercices/' + this.idExercice)
+    this.http.get(environment.baseUrl + '/getExercice/' + this.idExercice)
       .pipe(take(1))
       .subscribe((response: any[]) => {
         this.item = response;
@@ -104,7 +104,7 @@ export class ShowExercicesComponent implements OnInit {
   checkWithCubes(){
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
     replace('@', '%40').replace('.', '%point');
-    this.http.get(environment.baseUrl + '/reponse/' +
+    this.http.get(environment.baseUrl + '/isValidResponse/' +
       emailModified +
       '/' + this.idExercice)
       .pipe(take(1))
@@ -153,7 +153,25 @@ export class ShowExercicesComponent implements OnInit {
     this.classList.push(className);
   }
 
+  setFinished(idExercice: number){
+    // MET L'EXERCICEEN COURS A IS_FINISHED POUR L'UTILISATEUR
+    const emailModified = JSON.parse(localStorage.getItem('user')).login.
+    replace('@', '%40').replace('.', '%point');
 
+    this.http.get(environment.baseUrl + '/exercicesSetIsFinished/' +
+       + this.idExercice + '/' + emailModified)
+      .pipe(take(1))
+      .subscribe((response: number) => {
+        console.log(response);
+        // tslint:disable-next-line:triple-equals
+        if (response == 1){
+          alert('exercice validé!');
+        }
+        else {
+          alert('erreur lors de la validation, contacter un admin');
+        }
+      });
+  }
 
 
 }
