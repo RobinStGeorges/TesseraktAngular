@@ -6,9 +6,9 @@
     <div class="col-3"></div>
     <div id="data-content" class="col-6">
       <p>    Merci d'utiliser Tesserakt</p>
-      <p>Tesserakt vous informe que vos données ne seront pas utiliser à des fin commercials,
-        mais seulement dans le but de statistiques personnels et d'apprentissage personnel</p>
-      <p><u>Vous pouvez supprimer vos données personnel ou votre compte via les boutons ci dessous :</u></p>
+      <p>Tesserakt vous informe que vos données ne seront pas utilisées à des fins commerciales,
+        mais seulement dans le but de statistiques et d'apprentissages personnels</p>
+      <p><u>Vous pouvez supprimer vos données personnelles ou votre compte via les boutons ci-dessous :</u></p>
     </div>
     <div class="col-3"></div>
   </div>
@@ -43,7 +43,7 @@
                 <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                   <div *ngIf="f.email.errors.required">Vous devez rentrer un Email</div>
-                  <div *ngIf="f.email.errors.email">Votre adresse Email doit etre valide</div>
+                  <div *ngIf="f.email.errors.email">Votre adresse Email doit être valide</div>
                 </div>
               </div>
             </div>
