@@ -15,8 +15,8 @@ import {environment} from '../../environments/environment';
 })
 
 export class CoursComponent implements OnInit{
-  lesCours = [];
 
+  lesCours = [];
 
   constructor(
     private coursService: CoursDataService,

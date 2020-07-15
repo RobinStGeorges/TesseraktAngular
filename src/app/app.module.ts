@@ -31,6 +31,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfilComponent } from './profil/profil.component';
+import { ChartsModule } from 'ng2-charts';
+import { TimeToResolveChartComponent } from './time-to-resolve-chart/time-to-resolve-chart.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { ProfilComponent } from './profil/profil.component';
     ShowCoursComponent,
     ExercicesComponent,
     ShowExercicesComponent,
-    ProfilComponent
+    ProfilComponent,
+    TimeToResolveChartComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { ProfilComponent } from './profil/profil.component';
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    ChartsModule
   ],
   providers: [
     AuthService,

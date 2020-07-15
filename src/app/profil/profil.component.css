@@ -4,7 +4,7 @@
   border-color: #F5B82E;
   border-width : 2px ;
   border-style: solid;
-  height: 90vh;
+  height: 100%;
   text-align: center;
   align-content: center;
 }
@@ -28,4 +28,12 @@ h1{
 
 p{
   font-size: 20px;
+}
+
+.chart{
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 200px;
 }

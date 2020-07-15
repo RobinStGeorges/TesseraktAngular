@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {split} from "ts-node";
 
 @Component({
   selector: 'app-exercices',
@@ -13,6 +14,8 @@ import {environment} from '../../environments/environment';
 export class ExercicesComponent implements OnInit {
 
   lesExercices = [];
+  userMail: string;
+  arrayuserFinished: string[];
 
   constructor(
     private exerciceService: ExerciceService,
@@ -24,6 +27,7 @@ export class ExercicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllExercicesData();
+    this.userMail = JSON.parse(localStorage.getItem('user')).login;
   }
 
   getAllExercicesData(){
@@ -37,6 +41,13 @@ export class ExercicesComponent implements OnInit {
 
   showOneExercice(numero: number) {
     this.router.navigate(['/showExercice'], {queryParams: {id: numero}});
+  }
+
+  isInArray(array: string){
+    const newVar = array.split(';');
+    console.log(typeof newVar);
+    console.log(newVar);
+    return newVar.indexOf(this.userMail) > -1;
   }
 
 }

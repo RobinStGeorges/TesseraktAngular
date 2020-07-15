@@ -7,7 +7,12 @@
           class="list-group-item"
           *ngFor="let exercice of lesExercices; let i = index">
           <h3 class="list-group-item-heading titre">
-            <a (click)="showOneExercice(exercice.id_exercice )" > {{ exercice.titre }}</a>
+            <p><a (click)="showOneExercice(exercice.id_exercice )" > {{ exercice.titre }}</a>
+              <span *ngIf="isInArray(exercice.has_finished)"  >
+                <span class="glyphicon glyphicon-ok" ></span>
+              </span>
+            </p>
+            <p class="description">{{ exercice.description }}</p>
           </h3>
           <!--          <p class="list-group-item-text">{{ cours.payload.doc.data().contenu }}</p>-->
         <span class="exo-status-valide" *ngIf="exercice.isDone === true">

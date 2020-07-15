@@ -152,10 +152,11 @@ export class ShowExercicesComponent implements OnInit {
 
   addClassToArray(className: string){
     this.classList.push(className);
+    console.log(className);
   }
 
   setFinished(idExercice: number){
-    // MET L'EXERCICEEN COURS A IS_FINISHED POUR L'UTILISATEUR
+    // MET L'EXERCICE EN COURS A IS_FINISHED POUR L'UTILISATEUR
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
     replace('@', '%40').replace('.', '%point');
 

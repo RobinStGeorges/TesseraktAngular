@@ -13,12 +13,13 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
-  userEmail: string;
 
+  userEmail: string;
   showModal: boolean;
   showModalData: boolean;
   registerForm: FormGroup;
   submitted = false;
+  timeToSolve = [];
 
   constructor(
     private authService: AuthService,
@@ -49,7 +50,7 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.userEmail = JSON.parse(localStorage.getItem('user')).login;
-
+    this.getTimeToSolve();
     // modalForm
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -92,6 +93,17 @@ export class ProfilComponent implements OnInit {
 
   deleteUser(){
     this.authService.deleteUser();
+  }
+
+  getTimeToSolve(){
+    const emailModified = JSON.parse(localStorage.getItem('user')).login.
+    replace('@', '%40').replace('.', '%point');
+    this.http.get(environment.baseUrl + '/getTimeToSolve/' + emailModified )
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        console.log(response);
+        this.timeToSolve = response;
+      });
   }
 
 }
