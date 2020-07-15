@@ -4,10 +4,11 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Component, OnInit} from '@angular/core';
 import { DataService } from '../service/data/data.service';
 import {take} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {environment} from '../../environments/environment';
+
 
 @Component({
   selector: 'app-show-exercices',
