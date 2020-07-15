@@ -152,7 +152,6 @@ export class ShowExercicesComponent implements OnInit {
 
   addClassToArray(className: string){
     this.classList.push(className);
-    console.log(className);
   }
 
   setFinished(idExercice: number){
@@ -164,7 +163,6 @@ export class ShowExercicesComponent implements OnInit {
        + this.idExercice + '/' + emailModified)
       .pipe(take(1))
       .subscribe((response: number) => {
-        console.log(response);
         // tslint:disable-next-line:triple-equals
         if (response == 1){
           alert('exercice validé!');

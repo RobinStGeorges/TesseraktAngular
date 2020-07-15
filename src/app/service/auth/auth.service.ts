@@ -14,7 +14,7 @@ export class AuthService {
       (resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
           () => {
-            console.log('connecté');
+            alert('connecté');
             resolve();
           }
         ).catch(
@@ -32,7 +32,6 @@ export class AuthService {
       (resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(email, password).then(
           (data) => {
-            console.log('utilisateur reconnu !');
             resolve(data);
           }
         ).catch(

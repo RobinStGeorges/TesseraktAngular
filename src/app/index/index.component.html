@@ -5,7 +5,10 @@
     Bienvenue sur Tesserakt !
   </h1>
 
-  <u>Vous pouvez commencer par <a routerLink="/login">vous connecter</a></u>
+  <div *ngIf="!isLoggedIn">
+    <u>Vous pouvez commencer par <a routerLink="/login">vous connecter</a></u>
+  </div>
+
 
 
   <div class="bording">

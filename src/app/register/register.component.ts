@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
   }
 
   initSignUpForm(){
-    console.log('initialized');
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -42,19 +41,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitSignUpForm(){
-    console.log('intoOnsubmit');
     const email = this.signinForm.get('email').value;
     const password = this.signinForm.get('password').value;
     this.firstName = this.signinForm.get('firstName').value;
     this.lastName = this.signinForm.get('lastName').value;
     this.authService.signUpUser(email, password).then(
       () => {
-        console.log('sucessfuly singin');
         this.isSignedIn = true;
       }
     ).catch(
       (error) => {
-        console.log(error);
+        alert(error);
       }
     );
   }

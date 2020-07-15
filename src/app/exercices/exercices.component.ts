@@ -45,8 +45,6 @@ export class ExercicesComponent implements OnInit {
 
   isInArray(array: string){
     const newVar = array.split(';');
-    console.log(typeof newVar);
-    console.log(newVar);
     return newVar.indexOf(this.userMail) > -1;
   }
 
