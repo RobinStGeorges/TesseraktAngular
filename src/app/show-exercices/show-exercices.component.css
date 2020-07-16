@@ -1,24 +1,29 @@
 .page{
-  background-color: #456990;
-  color:white;
-  border-color: #F5B82E;
+  background-image: url('../../assets/images/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
+  border-color: #BFAB25;
   border-width : 2px ;
   border-style: solid;
-  /*height: 90vh;*/
   text-align: center;
-  padding-bottom: 20px;
+  padding: 15%;
+  margin-top: 12%;
 }
 
 .titre{
   text-align: left;
-  font-family: Roboto, serif;
+  font-family: 'Abril Fatface', cursive;
   margin: 3%;
 }
 
 .contenu{
+  font-family: 'Lato', sans-serif;
+  line-height: 27px;
+  font-size: 127%;
   text-align: left;
-  font-family: Roboto, serif;
-  margin: 3%;
 }
 
 .video{
@@ -39,22 +44,24 @@ img{
 
 .cubeValue{
   margin: 1%;
-  width: 20%;
+  width: 25%;
   border-color: #F5B82E;
   border-width : 2px ;
   border-style: solid;
-  text-align: center;
+  font-family: 'Lato', sans-serif;
+  text-transform: capitalize;
+
 }
 
 .masterCube{
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
   background-color: #F5B82E;
 }
 
 .cube{
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
   border: #F5B82E;
   border-width : 2px ;
   border-style: solid;

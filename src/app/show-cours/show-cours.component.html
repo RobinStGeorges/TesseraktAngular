@@ -1,5 +1,6 @@
+<a class="btn btn-primary pull-left" href="cours/" role="button">↵ Retour</a>
+
 <div class="page">
-  <a class="btn btn-primary pull-left" href="cours/" role="button">↵ Retour</a>
 
   <div *ngFor="let cours of item; let i = index">
 
@@ -20,7 +21,7 @@
 
       <div class="col video">
         <!--      <img class="img" src="assets/light_bulb.png" alt="bulb"  />-->
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/tNH2JbcCCFU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/tNH2JbcCCFU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
     <a class="btn btn-warning" (click)="showExerciceById(cours.id_exercice)"  role="button">Accéder à l'exercice</a>

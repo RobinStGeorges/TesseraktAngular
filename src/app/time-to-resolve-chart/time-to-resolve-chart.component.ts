@@ -39,8 +39,8 @@ export class TimeToResolveChartComponent implements OnInit {
   ngOnInit() {
     this.getTimeToSolve();
     this.arrayOne();
-    this.lineChartData[0].data = this.timeToSolve;
-    this.lineChartLabels = this.dataId;
+    // this.lineChartData[0].data = this.timeToSolve;
+    // this.lineChartLabels = this.dataId;
   }
 
   getTimeToSolve(){
