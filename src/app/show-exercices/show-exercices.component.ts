@@ -133,7 +133,6 @@ export class ShowExercicesComponent implements OnInit {
   checkWithCubes(){
     this.setShowCubeDisplay();
     this.initGridExo();
-    console.log('aaaaaaaaaaaaah');
     this.getValueFromId(3);
     this.manageCubesAlgo();
 
@@ -213,26 +212,27 @@ export class ShowExercicesComponent implements OnInit {
   }
 
   // set les class selon la position de la voiture et son etat
-  manageCarPos(x: number, y: number){
-    for (let i = 0; i < this.xCarMatrix; i++){
-      for (let j = 0 ; j < this.yCarMatrix; j++){
+  async manageCarPos(x: number, y: number, oldX: number, oldY: number) {
+    const oldDivById = document.getElementById('virt' + oldX + oldY);
+    oldDivById.classList.remove('hasCarUP', 'hasCarDOWN', 'hasCarLEFT', 'hasCarRIGHT');
+    for (let i = 0; i < this.xCarMatrix; i++) {
+      for (let j = 0; j < this.yCarMatrix; j++) {
         const divById = document.getElementById('virt' + x + y);
-        console.log(' x : ' + x + ' i : ' + i);
-        console.log(' y : ' + y + ' j : ' + j);
-        if (i === x && j === y){
+        if (i === x && j === y) {
           // si c'est la bonne pos, ajouter le dernier etat'
           divById.classList.remove('hasCarUP', 'hasCarDOWN', 'hasCarLEFT', 'hasCarRIGHT');
-          if (this.newCarState === 'UP'){
+          if (this.newCarState === 'UP') {
             divById.classList.add('hasCarUP');
-          }
-          else if (this.newCarState === 'DOWN'){
+            await this.delay(3000);
+          } else if (this.newCarState === 'DOWN') {
             divById.classList.add('hasCarDOWN');
-          }
-          else if (this.newCarState === 'LEFT'){
+            await this.delay(3000);
+          } else if (this.newCarState === 'LEFT') {
             divById.classList.add('hasCarLEFT');
-          }
-          else{
+            await this.delay(3000);
+          } else {
             divById.classList.add('hasCarRIGHT');
+            await this.delay(3000);
           }
         }
         // si ce n'est pas la bonne pos, retirer les class car'
@@ -255,7 +255,6 @@ export class ShowExercicesComponent implements OnInit {
   }
 
   async manageCubesAlgo() {
-    console.log('manageAlgo');
     const sizeMap = this.mapUserResponse.size;
     const x = 0;
     let y = 0;
@@ -264,23 +263,16 @@ export class ShowExercicesComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     let action: string;
     while (!isDone) {
-      console.log('boucle start');
       // regarde s'il y a une instruction'
-
-      console.log('map has ?');
-      console.log('' + x + '' + y);
-      console.log(this.mapUserResponse);
-      console.log(this.mapUserResponse.has('' + x + y));
-
       if (this.mapUserResponse.has('' + x + y)) {
-
-        console.log('get');
-        console.log(this.mapUserResponse.get('' + x + y));
-
-        if (this.mapUserResponse.get('' + x + y) === 'AVANCER') { // AVANCER
-          if (this.mapUserResponse.get('' + x + y) === '2') { // EGAL
-            if (this.mapUserResponse.get('' + x + y) === '3') {
-              isDone = this.forward(this.cubeNeeded(3));
+        // faire l'association id vers valeur'
+        if (Number(this.mapUserResponse.get('' + x + y)) === 1) { // AVANCER
+          if (Number(this.mapUserResponse.get('' + x + (y + 1))) === 2) { // EGAL
+            if (Number(this.mapUserResponse.get('' + x + (y + 2))) === 3) {
+              for (let indexFor = 0; indexFor < 2; indexFor ++){
+                await this.delay(2000);
+                isDone = this.forward(this.cubeNeeded[3]);
+              }
             }
           }
         }
@@ -296,7 +288,6 @@ export class ShowExercicesComponent implements OnInit {
         isWon = true;
         isDone = true;
       }
-      console.log('boucle end');
       await this.delay(1000);
     }
     if (isWon) {
@@ -314,7 +305,8 @@ export class ShowExercicesComponent implements OnInit {
           return false;
         }
         else {
-          this.manageCarPos(this.xStart, this. yStart - 1);
+          this.manageCarPos(this.xStart, this. yStart - 1, this.xStart, this.yStart);
+          this.yStart = this. yStart - 1;
         }
         break;
 
@@ -323,7 +315,8 @@ export class ShowExercicesComponent implements OnInit {
           return false;
         }
         else {
-          this.manageCarPos(this.xStart, this. yStart + 1);
+          this.manageCarPos(this.xStart, this. yStart + 1, this.xStart, this.yStart);
+          this.yStart = this.yStart + 1;
         }
         break;
 
@@ -332,7 +325,8 @@ export class ShowExercicesComponent implements OnInit {
           return false;
         }
         else{
-          this.manageCarPos(this.xStart - 1, this. yStart);
+          this.manageCarPos(this.xStart - 1, this. yStart, this.xStart , this. yStart);
+          this.xStart = this.xStart - 1;
         }
         break;
 
@@ -341,7 +335,8 @@ export class ShowExercicesComponent implements OnInit {
           return false;
         }
         else{
-          this.manageCarPos(this.xStart + 1, this. yStart);
+          this.manageCarPos(this.xStart + 1, this. yStart, this.xStart , this. yStart);
+          this.xStart = this.xStart + 1;
         }
         break;
     }
@@ -349,9 +344,10 @@ export class ShowExercicesComponent implements OnInit {
   }
 
   // initialise la matrice de solution virtuelle
-  initGridExo(){
+  async initGridExo() {
     const divById = document.getElementById('virt' + this.xStart + this.yStart);
     divById.classList.add('hasCarUP');
+    await this.delay(500);
   }
 
   // fonction async permetant delay entre affichages
@@ -365,11 +361,6 @@ export class ShowExercicesComponent implements OnInit {
 
   hideDeleteData(){
     this.showModalData = false;
-  }
-
-  showData()
-  {
-    this.showModalData = true;
   }
 
 }
