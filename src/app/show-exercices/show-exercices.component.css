@@ -78,6 +78,11 @@ img{
   width:100px;
 }
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .vide{
   background-color: #456990;
   vertical-align: middle;
@@ -108,4 +113,29 @@ img{
 
 .VIRAGEGAUCHE{
   background-color: antiquewhite;
+}
+
+.hasCarUP{
+  background-image: url("../../assets/car_top_up.PNG");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.hasCarDOWN{
+  background-image: url("../../assets/car_top_up.PNG");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.hasCarLEFT{
+  background-image: url("../../assets/car_top_up.PNG");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.hasCarRIGHT{
+  background-image: url("../../assets/car_top_up.PNG");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }

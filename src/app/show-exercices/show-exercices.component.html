@@ -3,6 +3,26 @@
   <br>
 
 
+  <div [style.display]="showModalData ? 'block' : 'none'" class="modal" id="imagemodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel2">Avant de commencer l'exercice</h4>
+        </div>
+        <div class="modal-body">
+          <p> Pour cette exercice, vous aurez besoin de {{nbCube}} cubes.</p>
+          <p> Les valeurs de ces cubes serons dans l'ordre :</p>
+          <p>{{ cubeNeeded }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "hideDeleteData()">J'ai compris</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div *ngFor="let exercice of item; let i = index">
     <div *ngIf=" !exercice.disponible ">
       Cet exercice n'est pas encore disponible ! Validez les exercices précédents
@@ -51,6 +71,24 @@
 
       <br>
 
+      <div class="row" id='cubeShow'>
+        <div class="col-3"></div>
+        <div class="col-6">
+<!--          RESOLUTION VIA CUBE-->
+          <table class="center ">
+            <div *ngFor="let item_y of arrayOne(exercice.matrix_size_y_board); let iyBoard = index;">
+              <tr>
+                 <span *ngFor="let item_x of arrayOne(exercice.matrix_size_x_board); let ixBoard = index;">
+                   <td class="cube vide" id="{{'virt'+ixBoard+''+iyBoard}}">
+                   </td>
+                 </span>
+              </tr>
+            </div>
+          </table>
+        </div>
+        <div class="col-3"></div>
+      </div>
+
       <div class="row">
         <div class="col-3">
 
@@ -59,8 +97,9 @@
           <p>
             Pas de cubes ? Tentez de résoudre l'exercice ici avant de regarder la réponse !
           </p>
+<!--          RESOLUTION VIRTUELLE-->
 <!--parcourt la taille de matrice de bdd, et creer un tableau selon cette taille-->
-            <table>
+            <table class="center">
               <tr>
                 <td>
                   <div class="masterCube">

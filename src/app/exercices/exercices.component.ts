@@ -44,8 +44,14 @@ export class ExercicesComponent implements OnInit {
   }
 
   isInArray(array: string){
-    const newVar = array.split(';');
-    return newVar.indexOf(this.userMail) > -1;
+    return false;
+    // if (typeof array === 'object'){
+    //   const newVar = array.split(';');
+    //   return newVar.indexOf(this.userMail) > -1;
+    // }
+    // else{
+    //   return false;
+    // }
   }
 
 }
