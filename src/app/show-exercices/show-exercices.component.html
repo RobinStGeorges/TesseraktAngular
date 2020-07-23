@@ -10,24 +10,48 @@
           <h4 class="modal-title" id="myModalLabel2">Avant de commencer l'exercice</h4>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-6">
-              <p>Les cubes connectés actuellement :</p>
-              <ul>
-                <li *ngFor="let item of userResponseValue; index as i; ">
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-            <div class="col-6">
-              <p> Les valeurs de ces cubes seront :</p>
-              <ul>
-                <li *ngFor="let item of cubeNeeded; index as i; ">
-                  {{ item }}
-                </li>
-              </ul>
-            </div>
-          </div>
+<!--            <div class="col-6">-->
+            <p>Les cubes connectés actuellement :</p>
+<!--              <ul>-->
+                <!-- Form starts -->
+                <form id="cubeIdToAction" (ngSubmit)="onSubmit()">
+                  <div *ngFor="let userItem of userResponseValue; index as i; ">
+                    <div class="row">
+                      <div class="col-6">
+                        {{ userItem }}
+                      </div>
+                      <div  class="col-6">
+                        <select class="select"  name="{{ userItem }}">
+                            <option *ngFor="let cubeItem of cubeNeeded; index as i; " value="{{ cubeItem }}">{{ cubeItem }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+<!--                  <select multiple formControlName="cityName">-->
+<!--                    <option value="">Choose your city</option>-->
+<!--                    <option *ngFor="let city of City" [ngValue]="city" (change)="changeCity($event)">{{city}}-->
+<!--                    </option>-->
+<!--                  </select>-->
+
+                  <!-- Submit Button -->
+                  <div class="row">
+                    <button type="submit" class="btn btn-warning btn-lg btn-block">recharger</button>
+                  </div>
+                  <div class="row">
+                    <button type="submit" class="btn btn-danger btn-lg btn-block">Submit</button>
+                  </div>
+                </form><!-- Form ends -->
+
+<!--              </ul>-->
+<!--            <div class="col-6">-->
+<!--              <p> Les valeurs de ces cubes seront :</p>-->
+<!--              <ul>-->
+<!--                <li *ngFor="let item of cubeNeeded; index as i; ">-->
+<!--                  {{ item }}-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
           <p> Pour cette exercice, vous aurez besoin de {{nbCube}} cubes.</p>
 
           <p>

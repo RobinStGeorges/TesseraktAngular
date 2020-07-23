@@ -9,7 +9,8 @@ import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {environment} from '../../environments/environment';
 import index from '@angular/cli/lib/cli';
-import {browser} from 'protractor';
+import {browser, element} from 'protractor';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -41,6 +42,8 @@ export class ShowExercicesComponent implements OnInit {
   waitCount = 0;
   nbCube = 0;
   showModalData = false;
+  cubeIdToAction: any;
+  resultatForm: string;
 
   // DEV, NEED TO CHANGE WITH KEVIN'S INPUT'
   mapIdBoxToAction = new Map<string, string>();
@@ -51,7 +54,8 @@ export class ShowExercicesComponent implements OnInit {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
-    @Inject(DOCUMENT) document
+    @Inject(DOCUMENT) document,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -123,9 +127,9 @@ export class ShowExercicesComponent implements OnInit {
       });
 
 // rafraichie le modal avec les données
-    setInterval(() => {
-      this.refreshCubeData();
-    }, 5000);
+//     setInterval(() => {
+//       this.refreshCubeData();
+//     }, 5000);
   }
 
   refreshCubeData(){
@@ -372,6 +376,7 @@ export class ShowExercicesComponent implements OnInit {
   }
 
   // fonction async permetant delay entre affichages
+
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
@@ -382,6 +387,29 @@ export class ShowExercicesComponent implements OnInit {
 
   hideDeleteData(){
     this.showModalData = false;
+  }
+
+  onSubmit(){
+    this.resultatForm = '';
+    const form = document.getElementById('cubeIdToAction');
+    const formElements = form.getElementsByClassName('select');
+    // @ts-ignore
+    for (const item of formElements) {
+      this.resultatForm = this.resultatForm + ';' + item.name + ';' + item.value;
+    }
+    this.setCubeValue();
+  }
+
+  setCubeValue(){
+    this.http.get(environment.baseUrl + '/setCubesValues/' + this.resultatForm)
+      .pipe(take(1))
+      .subscribe((userResponse: any[]) => {
+
+      });
+  }
+
+  getCubeValueById(id: number){
+
   }
 
 }
