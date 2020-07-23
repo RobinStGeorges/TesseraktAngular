@@ -37,6 +37,7 @@ export class ShowExercicesComponent implements OnInit {
   coordFinish: string;
   newCarState = 'UP'; // can be UP, DOWN, LEFT and RIGHT
   mapUserResponse = new Map<string, string>();
+  userResponseValue: string[] ;
   waitCount = 0;
   nbCube = 0;
   showModalData = false;
@@ -121,6 +122,11 @@ export class ShowExercicesComponent implements OnInit {
 
         }
       });
+
+    // rafraichie le modal avec les données
+    // this.interval = setInterval(() => {
+    //   this.refreshData();
+    // }, 5000);
   }
 
   changeImg(path: string) {
@@ -250,6 +256,7 @@ export class ShowExercicesComponent implements OnInit {
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < userResponse.length; i++){
           this.mapUserResponse.set('' + userResponse[i].coord_x + userResponse[i].coord_y, userResponse[i].id_box);
+          this.userResponseValue.push(userResponse[i].id_box);
         }
       });
   }
