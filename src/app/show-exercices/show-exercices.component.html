@@ -21,7 +21,12 @@
             </div>
             <div class="col-6">
               <p> Les valeurs de ces cubes seront dans l'ordre :</p>
-              <p>{{ cubeNeeded }}</p>
+<!--              <p>{{ cubeNeeded }}</p>-->
+              <ul>
+                <li *ngFor="let item of cubeNeeded; index as i; ">
+                  {{ item }}
+                </li>
+              </ul>
             </div>
           </div>
           <p> Pour cette exercice, vous aurez besoin de {{nbCube}} cubes.</p>
