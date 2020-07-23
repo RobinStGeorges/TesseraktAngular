@@ -37,7 +37,7 @@ export class ShowExercicesComponent implements OnInit {
   coordFinish: string;
   newCarState = 'UP'; // can be UP, DOWN, LEFT and RIGHT
   mapUserResponse = new Map<string, string>();
-  userResponseValue: string[] ;
+  userResponseValue: string[] = [] ;
   waitCount = 0;
   nbCube = 0;
   showModalData = false;
