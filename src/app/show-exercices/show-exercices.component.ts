@@ -287,15 +287,12 @@ export class ShowExercicesComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     let action: string;
     while (!isDone) {
-      // console.log('getCubeValue : ');
-      // console.log(Number(this.mapUserResponse.get('' + x + y)));
-      // console.log(this.getCubeValueById(Number(this.mapUserResponse.get('' + x + y))));
       // regarde s'il y a une instruction'
       if (this.mapUserResponse.has('' + x + y)) {
         // faire l'association id vers valeur'
-        if (Number(this.mapUserResponse.get('' + x + y)) === 1) { // AVANCER
-          if (Number(this.mapUserResponse.get('' + x + (y + 1))) === 2) { // EGAL
-            if (Number(this.mapUserResponse.get('' + x + (y + 2))) === 3) {
+        if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + y))) === 'AVANCER') { // AVANCER
+          if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 1)))) === 'EGAL') { // EGAL
+            if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'DEUX') {
               for (let indexFor = 0; indexFor < 2; indexFor ++){
                 await this.delay(2000);
                 isDone = this.forward(this.cubeNeeded[3]);
@@ -436,6 +433,7 @@ export class ShowExercicesComponent implements OnInit {
     divFinished.classList.add('finish');
   }
 
+  // RENVOI UNE MAP AVEC LES ID DES BOITE ET LEURS ACTION
   getCubeToIdMap(){
     this.http.get(environment.baseUrl + '/getCubesValuesAll')
       .pipe(take(1))
