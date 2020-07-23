@@ -125,11 +125,6 @@ export class ShowExercicesComponent implements OnInit {
 
         }
       });
-
-// rafraichie le modal avec les données
-//     setInterval(() => {
-//       this.refreshCubeData();
-//     }, 5000);
   }
 
   refreshCubeData(){
@@ -291,8 +286,8 @@ export class ShowExercicesComponent implements OnInit {
       // regarde s'il y a une instruction'
       if (this.mapUserResponse.has('' + x + y)) {
         // faire l'association id vers valeur'
-        if (Number(this.mapUserResponse.get('' + x + y)) === 1) { // AVANCER
-          if (Number(this.mapUserResponse.get('' + x + (y + 1))) === 2) { // EGAL
+        if (this.getCubeValueById(Number(this.mapUserResponse.get('' + x + y))) === 'AVANCER') { // AVANCER
+          if (this.getCubeValueById(Number(this.mapUserResponse.get('' + x + (y + 1)))) === 'EGAL') { // EGAL
             if (Number(this.mapUserResponse.get('' + x + (y + 2))) === 3) {
               for (let indexFor = 0; indexFor < 2; indexFor ++){
                 await this.delay(2000);
@@ -410,12 +405,17 @@ export class ShowExercicesComponent implements OnInit {
         else {
           alert('C"est bon, c"est passé !');
         }
-        alert(userResponse);
       });
   }
 
-  getCubeValueById(id: number){
-
+  getCubeValueById(id: number): string{
+    let responseToSend = '';
+    this.http.get(environment.baseUrl + '/getCubesValues/' + id)
+      .pipe(take(1))
+      .subscribe((response: string) => {
+        responseToSend = response;
+      });
+    return responseToSend;
   }
 
 }
