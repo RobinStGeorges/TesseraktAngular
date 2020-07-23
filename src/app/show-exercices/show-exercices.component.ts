@@ -90,7 +90,6 @@ export class ShowExercicesComponent implements OnInit {
       });
 
     this.showModalData = true;
-
     this.getUserResponse();
 
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
