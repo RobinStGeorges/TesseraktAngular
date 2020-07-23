@@ -26,7 +26,6 @@ export class ShowExercicesComponent implements OnInit {
   showExercice: boolean;
   item: any;
   cubeNeeded: any;
-  responseIsCorrect = -1;
   x = 0;
   y = 0;
   xCarMatrix = 0;
@@ -39,12 +38,11 @@ export class ShowExercicesComponent implements OnInit {
   newCarState = 'UP'; // can be UP, DOWN, LEFT and RIGHT
   mapUserResponse = new Map<string, string>();
   userResponseValue: string[] = [] ;
-  waitCount = 0;
   nbCube = 0;
   showModalData = false;
-  cubeIdToAction: any;
   resultatForm: string;
   mapCubeToId = new Map<number, string>();
+  actualCoord = '';
 
 
   // DEV, NEED TO CHANGE WITH KEVIN'S INPUT'
@@ -133,7 +131,6 @@ export class ShowExercicesComponent implements OnInit {
 
   refreshCubeData(){
     if (this.showModalData === true){
-      console.log('un tour de plus');
       this.userResponseValue = [];
       this.http.get(environment.baseUrl + '/getUserResponse')
         .pipe(take(1))
@@ -156,25 +153,9 @@ export class ShowExercicesComponent implements OnInit {
   checkWithCubes(){
     this.setShowCubeDisplay();
     this.initGridExo();
+    this.initVirtMatrixStartFinish();
     this.getValueFromId(3);
     this.manageCubesAlgo();
-
-
-    // const emailModified = JSON.parse(localStorage.getItem('user')).login.
-    // replace('@', '%40').replace('.', '%point');
-    // this.http.get(environment.baseUrl + '/isValidResponse/' +
-    //   emailModified +
-    //   '/' + this.idExercice)
-    //   .pipe(take(1))
-    //   .subscribe((response: number) => {
-    //     // tslint:disable-next-line:triple-equals
-    //     if (response == 1){
-    //       alert('Vous avez trouvé la bonne solution grace aux cubes ! Félicitation ! Vous pouvez passer au cours suivant !');
-    //     }
-    //     else{
-    //       alert('Cela n\'est pas la bonne réponse ! Essayer encore, ou regarder le cours ou la solution');
-    //     }
-    //   });
   }
 
   // RETOURNE UN ARRAY AVEC N VALEURS
@@ -286,6 +267,7 @@ export class ShowExercicesComponent implements OnInit {
     let isWon = false;
     // tslint:disable-next-line:prefer-const
     let action: string;
+    this.actualCoord = '';
     while (!isDone) {
       // regarde s'il y a une instruction'
       if (this.mapUserResponse.has('' + x + y)) {
@@ -307,11 +289,7 @@ export class ShowExercicesComponent implements OnInit {
       } else {
         isDone = true;
       }
-      // regarde si la voiture est sur les bonnes coordonnées
-      if ('virt' + this.coordFinish === 'virt' + x + y) {
-        isWon = true;
-        isDone = true;
-      }
+
       await this.delay(1000);
     }
     if (isWon) {
@@ -331,6 +309,11 @@ export class ShowExercicesComponent implements OnInit {
         else {
           this.manageCarPos(this.xStart, this. yStart - 1, this.xStart, this.yStart);
           this.yStart = this. yStart - 1;
+          this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
+          // regarde si la voiture est sur les bonnes coordonnées
+          if ('virt' + this.coordFinish === this.actualCoord) {
+            alert('Vous avez réussi !');
+          }
         }
         break;
 
@@ -341,6 +324,11 @@ export class ShowExercicesComponent implements OnInit {
         else {
           this.manageCarPos(this.xStart, this. yStart + 1, this.xStart, this.yStart);
           this.yStart = this.yStart + 1;
+          this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
+          // regarde si la voiture est sur les bonnes coordonnées
+          if ('virt' + this.coordFinish === this.actualCoord) {
+            alert('Vous avez réussi !');
+          }
         }
         break;
 
@@ -351,6 +339,11 @@ export class ShowExercicesComponent implements OnInit {
         else{
           this.manageCarPos(this.xStart - 1, this. yStart, this.xStart , this. yStart);
           this.xStart = this.xStart - 1;
+          this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
+          // regarde si la voiture est sur les bonnes coordonnées
+          if ('virt' + this.coordFinish === this.actualCoord) {
+            alert('Vous avez réussi !');
+          }
         }
         break;
 
@@ -361,6 +354,11 @@ export class ShowExercicesComponent implements OnInit {
         else{
           this.manageCarPos(this.xStart + 1, this. yStart, this.xStart , this. yStart);
           this.xStart = this.xStart + 1;
+          this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
+          // regarde si la voiture est sur les bonnes coordonnées
+          if ('virt' + this.coordFinish === this.actualCoord) {
+            alert('Vous avez réussi !');
+          }
         }
         break;
     }
@@ -423,8 +421,6 @@ export class ShowExercicesComponent implements OnInit {
   }
 
   public initVirtMatrixStartFinish() {
-    console.log('la div : ');
-    console.log('virt' + this.xStart + this.yStart);
     const divById = document.getElementById('virt' + this.xStart + this.yStart);
     divById.classList.remove('vide');
     divById.classList.add('start');
@@ -438,16 +434,10 @@ export class ShowExercicesComponent implements OnInit {
     this.http.get(environment.baseUrl + '/getCubesValuesAll')
       .pipe(take(1))
       .subscribe((response: any[]) => {
-        console.log('la response: ');
-        console.log(response);
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < response.length; i++){
-          console.log('ce que je veux :');
-          console.log('' + response[i].id_cube + ' ' + response[i].action);
           this.mapCubeToId.set(response[i].id_cube, response[i].action);
         }
-        console.log('Les users responses : ');
-        console.log(this.mapCubeToId);
       });
   }
 }
