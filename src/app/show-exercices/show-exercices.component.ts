@@ -403,8 +403,14 @@ export class ShowExercicesComponent implements OnInit {
   setCubeValue(){
     this.http.get(environment.baseUrl + '/setCubesValues/' + this.resultatForm)
       .pipe(take(1))
-      .subscribe((userResponse: any[]) => {
-
+      .subscribe((userResponse: boolean) => {
+        if (userResponse === false){
+          alert('recommencez, le reseau a du mal !');
+        }
+        else {
+          alert('C"est bon, c"est passé !');
+        }
+        alert(userResponse);
       });
   }
 
