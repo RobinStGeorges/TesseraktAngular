@@ -88,6 +88,16 @@ img{
   vertical-align: middle;
 }
 
+.finish{
+  background-color: crimson;
+  vertical-align: middle;
+}
+
+.start{
+  background-color: #9FE855;
+  vertical-align: middle;
+}
+
 .AVANCER{
   background-color: crimson;
   vertical-align: middle;

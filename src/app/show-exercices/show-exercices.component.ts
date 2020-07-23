@@ -44,6 +44,8 @@ export class ShowExercicesComponent implements OnInit {
   showModalData = false;
   cubeIdToAction: any;
   resultatForm: string;
+  mapCubeToId = new Map<number, string>();
+
 
   // DEV, NEED TO CHANGE WITH KEVIN'S INPUT'
   mapIdBoxToAction = new Map<string, string>();
@@ -92,39 +94,41 @@ export class ShowExercicesComponent implements OnInit {
         this.cubeNeeded = result;
         this.nbCube = result.length;
       });
-
     this.showModalData = true;
     this.getUserResponse();
+    this.getCubeToIdMap();
 
     const emailModified = JSON.parse(localStorage.getItem('user')).login.
       replace('@', '%40').replace('.', '%point');
     // REGARDE SI L'UTILISATEUR A DEJA DES DONNEES SUR CET EXERCICE
-    this.http.get(environment.baseUrl + '/userdata/' +
-      emailModified +
-      '/' + this.idExercice)
-      .pipe(take(1))
-      .subscribe((response: any[]) => {
-        // SI PAS DE RESULTAT, CREER UNE ENTRÉE
-        if (!response[0]){
-          this.http.get(environment.baseUrl + '/exercices/createuserdatarow/' + this.idExercice + '/' + emailModified)
-            .pipe(take(1))
-            .subscribe((response2: any[]) => {
-            });
-        }
-        // si resultat:
-        // : is finished = true => disable btn + btn exo suivant
+    // this.http.get(environment.baseUrl + '/userdata/' +
+    //   emailModified +
+    //   '/' + this.idExercice)
+    //   .pipe(take(1))
+    //   .subscribe((response: any[]) => {
+    //     // SI PAS DE RESULTAT, CREER UNE ENTRÉE
+    //     if (!response[0]){
+    //       this.http.get(environment.baseUrl + '/exercices/createuserdatarow/' + this.idExercice + '/' + emailModified)
+    //         .pipe(take(1))
+    //         .subscribe((response2: any[]) => {
+    //         });
+    //     }
+    //     // si resultat:
+    //     // : is finished = true => disable btn + btn exo suivant
+    //
+    //     // SET IS STARTED TRUE ET DATES TART NOW
+    //     if (!response[0].is_started){
+    //       // set is started to true
+    //       // et date start to now
+    //       this.http.get(environment.baseUrl + '/exercices/setIsStarted/' + this.idExercice + '/' + emailModified)
+    //         .pipe(take(1))
+    //         .subscribe((response2: any[]) => {
+    //         });
+    //
+    //     }
+    //   });
 
-        // SET IS STARTED TRUE ET DATES TART NOW
-        if (!response[0].is_started){
-          // set is started to true
-          // et date start to now
-          this.http.get(environment.baseUrl + '/exercices/setIsStarted/' + this.idExercice + '/' + emailModified)
-            .pipe(take(1))
-            .subscribe((response2: any[]) => {
-            });
-
-        }
-      });
+    // this.initVirtMatrixStartFinish();
   }
 
   refreshCubeData(){
@@ -283,11 +287,14 @@ export class ShowExercicesComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     let action: string;
     while (!isDone) {
+      // console.log('getCubeValue : ');
+      // console.log(Number(this.mapUserResponse.get('' + x + y)));
+      // console.log(this.getCubeValueById(Number(this.mapUserResponse.get('' + x + y))));
       // regarde s'il y a une instruction'
       if (this.mapUserResponse.has('' + x + y)) {
         // faire l'association id vers valeur'
-        if (this.getCubeValueById(Number(this.mapUserResponse.get('' + x + y))) === 'AVANCER') { // AVANCER
-          if (this.getCubeValueById(Number(this.mapUserResponse.get('' + x + (y + 1)))) === 'EGAL') { // EGAL
+        if (Number(this.mapUserResponse.get('' + x + y)) === 1) { // AVANCER
+          if (Number(this.mapUserResponse.get('' + x + (y + 1))) === 2) { // EGAL
             if (Number(this.mapUserResponse.get('' + x + (y + 2))) === 3) {
               for (let indexFor = 0; indexFor < 2; indexFor ++){
                 await this.delay(2000);
@@ -412,10 +419,37 @@ export class ShowExercicesComponent implements OnInit {
     let responseToSend = '';
     this.http.get(environment.baseUrl + '/getCubesValues/' + id)
       .pipe(take(1))
-      .subscribe((response: string) => {
-        responseToSend = response;
+      .subscribe((response: any) => {
+        responseToSend = response[0].action;
       });
     return responseToSend;
   }
 
+  public initVirtMatrixStartFinish() {
+    console.log('la div : ');
+    console.log('virt' + this.xStart + this.yStart);
+    const divById = document.getElementById('virt' + this.xStart + this.yStart);
+    divById.classList.remove('vide');
+    divById.classList.add('start');
+    const divFinished = document.getElementById('virt' + this.coordFinish);
+    divFinished.classList.remove('vide');
+    divFinished.classList.add('finish');
+  }
+
+  getCubeToIdMap(){
+    this.http.get(environment.baseUrl + '/getCubesValuesAll')
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        console.log('la response: ');
+        console.log(response);
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < response.length; i++){
+          console.log('ce que je veux :');
+          console.log('' + response[i].id_cube + ' ' + response[i].action);
+          this.mapCubeToId.set(response[i].id_cube, response[i].action);
+        }
+        console.log('Les users responses : ');
+        console.log(this.mapCubeToId);
+      });
+  }
 }
