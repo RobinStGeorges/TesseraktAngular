@@ -123,10 +123,25 @@ export class ShowExercicesComponent implements OnInit {
         }
       });
 
-    // rafraichie le modal avec les données
-    // this.interval = setInterval(() => {
-    //   this.refreshData();
-    // }, 5000);
+// rafraichie le modal avec les données
+    setInterval(() => {
+      this.refreshCubeData();
+    }, 5000);
+  }
+
+  refreshCubeData(){
+    if (this.showModalData === true){
+      console.log('un tour de plus');
+      this.userResponseValue = [];
+      this.http.get(environment.baseUrl + '/getUserResponse')
+        .pipe(take(1))
+        .subscribe((userResponse: any[]) => {
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < userResponse.length; i++){
+            this.userResponseValue.push(userResponse[i].id_box);
+          }
+        });
+    }
   }
 
   changeImg(path: string) {
