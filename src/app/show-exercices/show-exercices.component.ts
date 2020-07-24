@@ -44,6 +44,7 @@ export class ShowExercicesComponent implements OnInit {
   mapCubeToId = new Map<number, string>();
   actualCoord = '';
   isDone = false;
+  isWon = false;
 
 
   // DEV, NEED TO CHANGE WITH KEVIN'S INPUT'
@@ -252,6 +253,7 @@ export class ShowExercicesComponent implements OnInit {
         // tslint:disable-next-line:prefer-for-of
         this.mapUserResponse.clear();
         this.userResponseValue = [];
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < userResponse.length; i++){
           this.mapUserResponse.set('' + userResponse[i].coord_x + userResponse[i].coord_y, userResponse[i].id_box);
           this.userResponseValue.push(userResponse[i].id_box);
@@ -310,12 +312,11 @@ export class ShowExercicesComponent implements OnInit {
 
       await this.delay(1000);
     }
-    if (isWon) {
-      // afficher victoire
-    } else {
-      // afficher perte
+    if (this.isDone && !this.isWon) {
+      alert('Ce n\'est pas la bonne réponse');
     }
   }
+
   async manageVirageAGauche(){
     const divById = document.getElementById('virt' + this.xStart + this.yStart);
     switch (this.newCarState) {
@@ -362,7 +363,8 @@ export class ShowExercicesComponent implements OnInit {
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
-            this.isDone = false;
+            this.isWon = true;
+            this.isDone = true;
           }
         }
         break;
@@ -379,7 +381,8 @@ export class ShowExercicesComponent implements OnInit {
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
-            this.isDone = false;
+            this.isWon = true;
+            this.isDone = true;
           }
         }
         break;
@@ -396,7 +399,8 @@ export class ShowExercicesComponent implements OnInit {
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
-            this.isDone = false;
+            this.isWon = true;
+            this.isDone = true;
           }
         }
         break;
@@ -413,7 +417,8 @@ export class ShowExercicesComponent implements OnInit {
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
-            this.isDone = false;
+            this.isWon = true;
+            this.isDone = true;
           }
         }
         break;
@@ -463,7 +468,7 @@ export class ShowExercicesComponent implements OnInit {
           alert('recommencez, le reseau a du mal !');
         }
         else {
-          alert('C"est bon, c"est passé !');
+          alert('C\'est bon, c\'est passé !');
         }
       });
   }
