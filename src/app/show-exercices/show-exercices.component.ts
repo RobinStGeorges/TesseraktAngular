@@ -294,6 +294,12 @@ export class ShowExercicesComponent implements OnInit {
                 await this.delay(1000);
                 this.forward();
               }
+              // regarde si la voiture est sur les bonnes coordonnées
+              if ('virt' + this.coordFinish === this.actualCoord) {
+                alert('Vous avez réussi !');
+                this.isWon = true;
+                this.isDone = true;
+              }
             }
           }
         }
@@ -360,12 +366,6 @@ export class ShowExercicesComponent implements OnInit {
           this.manageForward(this.xStart, this. yStart - 1, this.xStart, this.yStart);
           this.yStart = this. yStart - 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
-          // regarde si la voiture est sur les bonnes coordonnées
-          if ('virt' + this.coordFinish === this.actualCoord) {
-            alert('Vous avez réussi !');
-            this.isWon = true;
-            this.isDone = true;
-          }
         }
         break;
 
@@ -378,12 +378,6 @@ export class ShowExercicesComponent implements OnInit {
           this.manageForward(this.xStart, this. yStart + 1, this.xStart, this.yStart);
           this.yStart = this.yStart + 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
-          // regarde si la voiture est sur les bonnes coordonnées
-          if ('virt' + this.coordFinish === this.actualCoord) {
-            alert('Vous avez réussi !');
-            this.isWon = true;
-            this.isDone = true;
-          }
         }
         break;
 
@@ -396,12 +390,6 @@ export class ShowExercicesComponent implements OnInit {
           this.manageForward(this.xStart - 1, this. yStart, this.xStart , this. yStart);
           this.xStart = this.xStart - 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
-          // regarde si la voiture est sur les bonnes coordonnées
-          if ('virt' + this.coordFinish === this.actualCoord) {
-            alert('Vous avez réussi !');
-            this.isWon = true;
-            this.isDone = true;
-          }
         }
         break;
 
@@ -414,15 +402,10 @@ export class ShowExercicesComponent implements OnInit {
           this.manageForward(this.xStart + 1, this. yStart, this.xStart , this. yStart);
           this.xStart = this.xStart + 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
-          // regarde si la voiture est sur les bonnes coordonnées
-          if ('virt' + this.coordFinish === this.actualCoord) {
-            alert('Vous avez réussi !');
-            this.isWon = true;
-            this.isDone = true;
-          }
         }
         break;
     }
+
     return true;
   }
 
