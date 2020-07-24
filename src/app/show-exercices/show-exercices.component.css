@@ -132,19 +132,19 @@ img{
   background-position: center;
 }
 .hasCarDOWN{
-  background-image: url("../../assets/car_top_up.PNG");
+  background-image: url("../../assets/car_top_down.PNG");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 .hasCarLEFT{
-  background-image: url("../../assets/car_top_up.PNG");
+  background-image: url("../../assets/car_top_left.PNG");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 .hasCarRIGHT{
-  background-image: url("../../assets/car_top_up.PNG");
+  background-image: url("../../assets/car_top_right.PNG");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

@@ -43,6 +43,7 @@ export class ShowExercicesComponent implements OnInit {
   resultatForm: string;
   mapCubeToId = new Map<number, string>();
   actualCoord = '';
+  isDone = false;
 
 
   // DEV, NEED TO CHANGE WITH KEVIN'S INPUT'
@@ -216,7 +217,7 @@ export class ShowExercicesComponent implements OnInit {
   }
 
   // set les class selon la position de la voiture et son etat
-  async manageCarPos(x: number, y: number, oldX: number, oldY: number) {
+  async manageForward(x: number, y: number, oldX: number, oldY: number) {
     const oldDivById = document.getElementById('virt' + oldX + oldY);
     oldDivById.classList.remove('hasCarUP', 'hasCarDOWN', 'hasCarLEFT', 'hasCarRIGHT');
     for (let i = 0; i < this.xCarMatrix; i++) {
@@ -227,16 +228,16 @@ export class ShowExercicesComponent implements OnInit {
           divById.classList.remove('hasCarUP', 'hasCarDOWN', 'hasCarLEFT', 'hasCarRIGHT');
           if (this.newCarState === 'UP') {
             divById.classList.add('hasCarUP');
-            await this.delay(3000);
+            await this.delay(2000);
           } else if (this.newCarState === 'DOWN') {
             divById.classList.add('hasCarDOWN');
-            await this.delay(3000);
+            await this.delay(2000);
           } else if (this.newCarState === 'LEFT') {
             divById.classList.add('hasCarLEFT');
-            await this.delay(3000);
+            await this.delay(2000);
           } else {
             divById.classList.add('hasCarRIGHT');
-            await this.delay(3000);
+            await this.delay(2000);
           }
         }
         // si ce n'est pas la bonne pos, retirer les class car'
@@ -261,33 +262,58 @@ export class ShowExercicesComponent implements OnInit {
 
   async manageCubesAlgo() {
     const sizeMap = this.mapUserResponse.size;
-    const x = 0;
+    let x = 0;
     let y = 0;
-    let isDone = false;
-    let isWon = false;
+    this.isDone = false;
+    const isWon = false;
     // tslint:disable-next-line:prefer-const
     let action: string;
     this.actualCoord = '';
-    while (!isDone) {
+    while (!this.isDone) {
+      console.log('un tour de plus');
       // regarde s'il y a une instruction'
       if (this.mapUserResponse.has('' + x + y)) {
         // faire l'association id vers valeur'
+        // AVANCER
         if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + y))) === 'AVANCER') { // AVANCER
+          console.log('j\'avance !');
           if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 1)))) === 'EGAL') { // EGAL
+            console.log('de');
             if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'DEUX') {
+              console.log('deux');
               for (let indexFor = 0; indexFor < 2; indexFor ++){
                 await this.delay(2000);
-                isDone = this.forward(this.cubeNeeded[3]);
+                this.forward();
+              }
+            }
+            else if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'UN'){
+              for (let indexFor = 0; indexFor < 1; indexFor ++){
+                await this.delay(2000);
+                this.forward();
+              }
+            }
+            else if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'TROIS'){
+              for (let indexFor = 0; indexFor < 3; indexFor ++){
+                await this.delay(2000);
+                this.forward();
               }
             }
           }
         }
+        // TOURNER A GAUCHE
+        if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + y))) === 'VIRAGEGAUCHE'){
+          console.log('Je tourne !');
+          this.manageVirageAGauche();
+        }
       }
       // passe ligne suivante
-      if (this.mapUserResponse.has('' + x + (y + 1))) {
-        y++;
+      console.log('a une ligne ?');
+      if (this.mapUserResponse.has('' + (x + 1) + y)) {
+        console.log('ligne suivante');
+        x++;
+        y = 0;
       } else {
-        isDone = true;
+        this.isDone = true;
       }
 
       await this.delay(1000);
@@ -298,66 +324,104 @@ export class ShowExercicesComponent implements OnInit {
       // afficher perte
     }
   }
+  async manageVirageAGauche(){
+    const divById = document.getElementById('virt' + this.xStart + this.yStart);
+    switch (this.newCarState) {
+      case 'UP':
+        this.newCarState = 'LEFT';
+        divById.classList.remove('hasCarUP');
+        divById.classList.add('hasCarLEFT');
+        await this.delay(2000);
+        break;
+      case 'DOWN':
+        this.newCarState = 'RIGHT';
+        divById.classList.remove('hasCarDOWN');
+        divById.classList.add('hasCarRIGHT');
+        await this.delay(2000);
+        break;
+      case 'LEFT':
+        this.newCarState = 'DOWN';
+        divById.classList.remove('hasCarLEFT');
+        divById.classList.add('hasCarDOWN');
+        await this.delay(2000);
+        break;
+      case 'RIGHT':
+        this.newCarState = 'UP';
+        divById.classList.remove('hasCarRIGHT');
+        divById.classList.add('hasCarUP');
+        await this.delay(2000);
+        break;
+    }
+
+  }
 
   // bouge la voiture de case selon la direction actuel et la valeur
-  forward(value: number){
+  forward(){
     switch (this.newCarState) {
       case 'UP':
         if (this.yStart - 1 < 0){
+          this.isDone = false;
           return false;
         }
         else {
-          this.manageCarPos(this.xStart, this. yStart - 1, this.xStart, this.yStart);
+          this.manageForward(this.xStart, this. yStart - 1, this.xStart, this.yStart);
           this.yStart = this. yStart - 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
+            this.isDone = false;
           }
         }
         break;
 
       case 'DOWN':
         if (this.yStart + 1 > this.yCarMatrix){
+          this.isDone = false;
           return false;
         }
         else {
-          this.manageCarPos(this.xStart, this. yStart + 1, this.xStart, this.yStart);
+          this.manageForward(this.xStart, this. yStart + 1, this.xStart, this.yStart);
           this.yStart = this.yStart + 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
+            this.isDone = false;
           }
         }
         break;
 
       case 'LEFT':
         if (this.xStart - 1 < 0){
+          this.isDone = false;
           return false;
         }
         else{
-          this.manageCarPos(this.xStart - 1, this. yStart, this.xStart , this. yStart);
+          this.manageForward(this.xStart - 1, this. yStart, this.xStart , this. yStart);
           this.xStart = this.xStart - 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
+            this.isDone = false;
           }
         }
         break;
 
       case 'RIGHT':
         if (this.xStart + 1 > this.xCarMatrix){
+          this.isDone = false;
           return false;
         }
         else{
-          this.manageCarPos(this.xStart + 1, this. yStart, this.xStart , this. yStart);
+          this.manageForward(this.xStart + 1, this. yStart, this.xStart , this. yStart);
           this.xStart = this.xStart + 1;
           this.actualCoord = 'virt' + this.xStart + '' + this.yStart;
           // regarde si la voiture est sur les bonnes coordonnées
           if ('virt' + this.coordFinish === this.actualCoord) {
             alert('Vous avez réussi !');
+            this.isDone = false;
           }
         }
         break;
