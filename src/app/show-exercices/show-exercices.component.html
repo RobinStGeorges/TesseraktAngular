@@ -7,7 +7,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel2">Avant de commencer l'exercice</h4>
+          <h4 class="modal-title" id="myModalLabel2">Avant de
+            <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "hideDeleteData()">
+              commencer l'exercice
+            </button>
+            </h4>
         </div>
         <div class="modal-body">
           <p> Pour cette exercice, vous aurez besoin de {{nbCube}} cubes.</p>
@@ -34,14 +38,14 @@
                     <button type="submit" class="btn btn-danger btn-lg btn-block">Valider les cubes</button>
                   </div>
                 </form><!-- Form ends -->
-          <p>
-            <u>
-            Afin de les parametrer, connectez les un par un au cube master, afin de leur associer la valeur correspondante
-            </u>
-          </p>
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "hideDeleteData()">J'ai compris</button>
+          <p>
+            <u>
+              Afin de les parametrer, connectez les un par un au cube master, afin de leur associer la valeur correspondante
+            </u>
+          </p>
         </div>
       </div>
     </div>
