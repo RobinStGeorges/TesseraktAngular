@@ -60,10 +60,7 @@ export class ShowExercicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // DEV
-    this.mapIdBoxToAction.set('1', 'AVANCER');
-    this.mapIdBoxToAction.set('2', '=');
-    this.mapIdBoxToAction.set('3', 'DEUX');
+
     // RECUPERE LES DONNEES DE L EXERCICE PAR SON ID
     this.showExercice = true;
     this.idExercice = Number(this.route.snapshot.queryParamMap.get('id'));
@@ -228,16 +225,16 @@ export class ShowExercicesComponent implements OnInit {
           divById.classList.remove('hasCarUP', 'hasCarDOWN', 'hasCarLEFT', 'hasCarRIGHT');
           if (this.newCarState === 'UP') {
             divById.classList.add('hasCarUP');
-            await this.delay(2000);
+            await this.delay(1000);
           } else if (this.newCarState === 'DOWN') {
             divById.classList.add('hasCarDOWN');
-            await this.delay(2000);
+            await this.delay(1000);
           } else if (this.newCarState === 'LEFT') {
             divById.classList.add('hasCarLEFT');
-            await this.delay(2000);
+            await this.delay(1000);
           } else {
             divById.classList.add('hasCarRIGHT');
-            await this.delay(2000);
+            await this.delay(1000);
           }
         }
         // si ce n'est pas la bonne pos, retirer les class car'
@@ -253,6 +250,8 @@ export class ShowExercicesComponent implements OnInit {
       .pipe(take(1))
       .subscribe((userResponse: any[]) => {
         // tslint:disable-next-line:prefer-for-of
+        this.mapUserResponse.clear();
+        this.userResponseValue = [];
         for (let i = 0; i < userResponse.length; i++){
           this.mapUserResponse.set('' + userResponse[i].coord_x + userResponse[i].coord_y, userResponse[i].id_box);
           this.userResponseValue.push(userResponse[i].id_box);
@@ -270,31 +269,27 @@ export class ShowExercicesComponent implements OnInit {
     let action: string;
     this.actualCoord = '';
     while (!this.isDone) {
-      console.log('un tour de plus');
       // regarde s'il y a une instruction'
       if (this.mapUserResponse.has('' + x + y)) {
         // faire l'association id vers valeur'
         // AVANCER
         if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + y))) === 'AVANCER') { // AVANCER
-          console.log('j\'avance !');
           if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 1)))) === 'EGAL') { // EGAL
-            console.log('de');
             if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'DEUX') {
-              console.log('deux');
               for (let indexFor = 0; indexFor < 2; indexFor ++){
-                await this.delay(2000);
+                await this.delay(1000);
                 this.forward();
               }
             }
             else if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'UN'){
               for (let indexFor = 0; indexFor < 1; indexFor ++){
-                await this.delay(2000);
+                await this.delay(1000);
                 this.forward();
               }
             }
             else if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + (y + 2)))) === 'TROIS'){
               for (let indexFor = 0; indexFor < 3; indexFor ++){
-                await this.delay(2000);
+                await this.delay(1000);
                 this.forward();
               }
             }
@@ -302,14 +297,11 @@ export class ShowExercicesComponent implements OnInit {
         }
         // TOURNER A GAUCHE
         if (this.mapCubeToId.get(Number(this.mapUserResponse.get('' + x + y))) === 'VIRAGEGAUCHE'){
-          console.log('Je tourne !');
           this.manageVirageAGauche();
         }
       }
       // passe ligne suivante
-      console.log('a une ligne ?');
       if (this.mapUserResponse.has('' + (x + 1) + y)) {
-        console.log('ligne suivante');
         x++;
         y = 0;
       } else {
@@ -331,25 +323,25 @@ export class ShowExercicesComponent implements OnInit {
         this.newCarState = 'LEFT';
         divById.classList.remove('hasCarUP');
         divById.classList.add('hasCarLEFT');
-        await this.delay(2000);
+        await this.delay(1000);
         break;
       case 'DOWN':
         this.newCarState = 'RIGHT';
         divById.classList.remove('hasCarDOWN');
         divById.classList.add('hasCarRIGHT');
-        await this.delay(2000);
+        await this.delay(1000);
         break;
       case 'LEFT':
         this.newCarState = 'DOWN';
         divById.classList.remove('hasCarLEFT');
         divById.classList.add('hasCarDOWN');
-        await this.delay(2000);
+        await this.delay(1000);
         break;
       case 'RIGHT':
         this.newCarState = 'UP';
         divById.classList.remove('hasCarRIGHT');
         divById.classList.add('hasCarUP');
-        await this.delay(2000);
+        await this.delay(1000);
         break;
     }
 
@@ -459,6 +451,8 @@ export class ShowExercicesComponent implements OnInit {
       this.resultatForm = this.resultatForm + ';' + item.name + ';' + item.value;
     }
     this.setCubeValue();
+    this.getUserResponse();
+    this.getCubeToIdMap();
   }
 
   setCubeValue(){
